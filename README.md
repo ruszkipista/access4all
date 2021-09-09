@@ -41,7 +41,7 @@ Stakeholders of the website:
   - The `db.py` file is a module and contains code related to the database.
 * generating web pages from HTML templates with [Jinja](https://jinja.palletsprojects.com/) templating inserts
   - the `base.html` file contains the base HTML structure of all web pages generated in the app
-  - the `index.html` extends the `base.html` into the 3 versions of the Home page
+  - the `index.html` extends the `base.html` into the Home page
  
 ## 3. Features Left to Implement
 
@@ -66,7 +66,7 @@ Make sure, that [Python](https://www.python.org/downloads/) and [Git](https://gi
 * create a new organisation and a new project
 * inside the project at Database Deployments, create a new cluster
   * choose Shared / free tier cloud provider and region / M0 tier / choose cluster name
-* inside the newly created cluster create a database, e.g. `my_car`
+* inside the newly created cluster create a database, e.g. `access4all`
 * in Deployment Security / Database Access, create a user with password authentication, select role `readWriteAnyDatabase`
 
 Note down the following details:
@@ -82,9 +82,9 @@ Note down the following details:
 4. Open a terminal on your computer
 5. Change the current working directory to the one where the cloned folder will be located
 6. Clone the repo onto your machine with the following terminal command
-'''
+```
 git clone https://github.com/ruszkipista/access4all.git
-'''
+```
 
 #### 7.3 Create local files for environment variables
 Change working directory to the cloned folder and start your code editor
