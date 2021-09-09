@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <link rel="shortcut icon" href="https://www.accessforalluk.com/wp-content/uploads/2017/09/Access-for-all-uk-logo-16px.png" type="image/x-icon">
+  <title>Access For All</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='./css/style.css') }}" type="text/css">
+  {% block head %}{% endblock %}
+</head>
+
+<body>
+  <header>
+  </header>
+
+  <main class="content">
+  {% block body %}
+  {% endblock %}
+  </main>
+
+  <!-- Custom scripts -->
+  <script type="text/javascript" src="{{ url_for('static', filename='./js/script.js') }}"></script>
+</body>
+
+</html>
