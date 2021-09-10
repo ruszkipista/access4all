@@ -6,6 +6,8 @@ __pycache__/
 *.py[cod]
 node_modules/
 .github/
+envWS.py
+envDB.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
