@@ -1,5 +1,7 @@
 # Access For All
 
+This app was created by Debbie, Ivana, Jack, Slava and Istvan who took part in the Code Institute hackathon in September 2021.  The theme was to create an app for employers to use to increase inclusivity and accessibility for all employees.  In line with this theme we decided to create an app for an interviewer to use which gave them the facility to record their scores  and notes from a group of questions for each applicant and also helped them see how candidates were ranked.  Onboarding information would also be provided so that candidates queries about onboarding should they be successful at interview could be answered quickly.
+
 ## Contents
 - [1. User experience design](#1-user-experience-design "1. UX design")
   - [1.1 Strategy Plane](#11-strategy-plane "1.1 Strategy Plane")
