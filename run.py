@@ -34,6 +34,10 @@ def interviews():
         fieldcatalog = db.fieldcatalog,
         question_set_names = question_set_names)
 
+@app.route("/questions")
+def questions():
+    return render_template("questions.html")
+
 
 @app.errorhandler(404)
 def page_not_found(e):
