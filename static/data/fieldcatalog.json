@@ -1,0 +1,27 @@
+{
+  "interviews": {
+    "collection":  "interviews",
+    "entity_name": "interview",
+    "description": "Interviews",
+    "file_name":   "interviews.json",
+    "dbfields":[
+        {"name": "_id",         "heading": "ID#",         "input_type": "auto_increment"},
+        {"name": "position",    "heading": "Position",    "input_type": "text"},
+        {"name": "applicant",   "heading": "Applicant",   "input_type": "text"},
+        {"name": "interviewer", "heading": "Interviewer", "input_type": "text"},
+        {"name": "date",        "heading": "Date",        "input_type": "date"}
+    ]
+  },
+  "question_sets": {
+    "collection":  "question_sets",
+    "entity_name": "question_set",
+    "description": "Question Sets",
+    "file_name":   "question_sets.json",
+    "dbfields":[
+        {"name": "_id",         "heading": "ID#",          "input_type": "auto_increment"},
+        {"name": "setname",     "heading": "Question Set", "input_type": "text"},
+        {"name": "section",     "heading": "Section",      "input_type": "text"},
+        {"name": "question",    "heading": "Question",     "input_type": "text"}
+    ]
+  }
+}

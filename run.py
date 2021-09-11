@@ -10,13 +10,12 @@ if os.path.exists("envWS.py"):
 app = Flask(__name__)
 
 # take app configuration from OS environment variables
-app.secret_key = os.environ.get(
-    "FLASK_SECRET_KEY")            # => Heroku Config Vars
+app.secret_key = os.environ.get("FLASK_SECRET_KEY")  # => Heroku Config Vars
 app.config["FLASK_IP"] = os.environ.get("FLASK_IP",   "0.0.0.0")
 # the source 'PORT' name is mandated by Heroku app deployment
 app.config["FLASK_PORT"] = int(os.environ.get("PORT"))
-app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", "False").lower() in {
-    '1', 'true', 't', 'yes', 'y'}
+app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", "False").lower() \
+                            in {'1', 'true', 't', 'yes', 'y'}
 
 # App routes
 # ==============
@@ -24,11 +23,16 @@ app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", "False").lower() in {
 def index():
     return render_template("index.html")
 
-
-# Flask pattern from https://flask.palletsprojects.com/en/1.1.x/patterns/sqlite3/
-@app.teardown_appcontext
-def close_db_connection(exception):
-    db.close_db_connection(exception)
+@app.route("/interviews")
+def interviews():
+    interviews         = db.get_interviews_all()
+    question_set_names = db.get_question_set_names()
+    return render_template(
+        "interviews.html", 
+        collection   = db.INTERVIEWS,
+        rows         = interviews,
+        fieldcatalog = db.fieldcatalog,
+        question_set_names = question_set_names)
 
 
 @app.errorhandler(404)
