@@ -34,33 +34,28 @@ def interviews():
         fieldcatalog       = db.fieldcatalog,
         question_set_names = question_set_names)
 
-@app.route("/questions")
-def questions():
-    return render_template("questions.html")
-
-
-@app.route("/update/<collection_name>/<record_id>", methods=['GET', 'POST'])
-def update_record(collection_name, record_id):
-    record = db.get_db_record_by_id(collection_name, record_id)
+@app.route("/questions/<record_id>", methods=['GET', 'POST'])
+def update_interview(record_id):
+    record_id = int(record_id)
+    collection_name = db.INTERVIEWS
+    record = db.get_record_by_id(collection_name, record_id)
     if not record:
-        entity_name = db.get_db_entity_name(collection_name)
+        entity_name = db.get_entity_name(collection_name)
         flash(f"{entity_name} {record_id} does not exist", "danger")
-        return redirect(url_for('maintain', collection_name=collection_name))
+        return redirect(url_for('interviews'))
 
     if request.method == 'POST':
         result = db.save_record_to_db(request, collection_name, record)
-        print(*result.messages[0])
         for m in result.messages:
             flash(*m)
         # if record is empty, then the update was successful
         if not result.record:
-            return redirect(url_for('maintain', collection_name=collection_name))
+            return redirect(url_for('interviews'))
 
     return render_template(
-        "maintain.html",
+        "questions.html",
         collection_name=collection_name,
-        records=[],
-        last_record=record
+        record=record
     )
 
 

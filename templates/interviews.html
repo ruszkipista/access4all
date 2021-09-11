@@ -9,12 +9,12 @@
 {% set coll_fieldcat = fieldcatalog[collection_name] %}
 
 <div class="mt-5">&nbsp;</div>
-<h1>Maintain {{ coll_fieldcat['description'] }}</h1>
+<h1 class="text-center">Maintain {{ coll_fieldcat['description'] }}</h1>
 
 <!-- TABLE -->
 {% if records %}
 <div class="row m-0 p-0">
-    <div class="card col-12 my-3">
+    <div class="card col-sm-12 col-lg-8 offset-lg-2 my-3">
       <table class="table">
         <tr>
           {% for field in coll_fieldcat['dbfields'] %}
@@ -58,12 +58,11 @@
           </td>
           {% endfor %}
           <td class="text-center">
-              <a href="{{ url_for('update_record', collection_name=collection_name, record_id=record['_id']) }}">
-                <i class="fas fa-edit fa-lg ms-1" data-mdb-toggle="tooltip" data-mdb-placement="left" title="Edit"></i>
+              <a href="{{ url_for('update_interview', record_id=record['_id']) }}">
+                <i class="fas fa-edit fa-lg ms-1" title="Edit"></i>
               </a>
-              <a href="{{ url_for('delete_record', collection_name=collection_name, record_id=record['_id']) }}" 
-                  data-mdb-toggle="modal" data-mdb-target="#modal-confirm">
-                <i class="fas fa-trash-alt fa-lg" data-mdb-toggle="tooltip" data-mdb-placement="right" title="Delete"></i>
+              <a href="{{ url_for('delete_record', collection_name=collection_name, record_id=record['_id']) }}">
+                <i class="fas fa-trash-alt fa-lg text-danger" title="Delete"></i>
               </a>
           </td>
         </tr>
