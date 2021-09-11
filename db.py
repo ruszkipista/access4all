@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
-import certifi
+import certificate
 from flask import g, session
 from bson.objectid import ObjectId
 from bson.binary import Binary
