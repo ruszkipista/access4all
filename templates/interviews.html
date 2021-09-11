@@ -5,10 +5,11 @@
 
 {% block body %}
 
-<h1 class="mt-5">Hello World!</h1>
-
 {% set filter_postfix = "filter" %}
 {% set coll_fieldcat = fieldcatalog[collection_name] %}
+
+<div class="mt-5">&nbsp;</div>
+<h1>Maintain {{ coll_fieldcat['description'] }}</h1>
 
 <!-- TABLE -->
 {% if records %}
@@ -41,23 +42,16 @@
             <!-- DATE type -->
               {{ record[field['name']]|datetime_to_str('%d/%m/%Y') }}
   
-            {% elif field_input_type=='select' %}
-              {% if record[field['name']] and buffer[field['values']][record[field['name']]] %}
-            <!-- SELECT type -->
-                {% set item = buffer[field['values']][record[field['name']]] %}
-                {{ item[fieldcatalog[field['values']]['select_field']] }}
-              {% endif %}
-  
             {% elif field_input_type=='checkbox' %}
               {% if record[field['name']] %}&nbsp;
             <!-- CHECKBOX type -->
               <i class="far fa-check-square" data-mdb-toggle="tooltip" data-mdb-placement="right" title="{{ field['heading'] }}"></i>
               {% endif %}
   
-            {% elif field_input_type=='lookup' %}
+            {% elif field_input_type=='select' %}
               {% if record[field['name']] %}
-            <!-- LOOKUP type -->
-              {{ record[field['name']]|get_entity_select_field(field['values']) }}
+            <!-- SELECT type -->
+              {{ record[field['name']]|get_foreign_value(field['values']) }}
               {% endif %}
               
             {% endif %}

@@ -9,8 +9,10 @@
         {"name": "position",    "heading": "Position",    "input_type": "text"},
         {"name": "applicant",   "heading": "Applicant",   "input_type": "text"},
         {"name": "interviewer", "heading": "Interviewer", "input_type": "text"},
+        {"name": "question_set_id", "heading": "Question Set", "input_type": "select", "values": "question_sets"},
         {"name": "date",        "heading": "Date",        "input_type": "date"}
-    ]
+    ],
+    "convert_fields": ["date"]
   },
   "question_sets": {
     "collection":  "question_sets",
@@ -19,9 +21,8 @@
     "file_name":   "question_sets.json",
     "dbfields":[
         {"name": "_id",         "heading": "ID#",          "input_type": "auto_increment"},
-        {"name": "setname",     "heading": "Question Set", "input_type": "text"},
-        {"name": "section",     "heading": "Section",      "input_type": "text"},
-        {"name": "question",    "heading": "Question",     "input_type": "text"}
-    ]
+        {"name": "setname",     "heading": "Question Set", "input_type": "text"}
+    ],
+    "select_field": "setname"
   }
 }

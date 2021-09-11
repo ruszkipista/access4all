@@ -82,9 +82,9 @@ def _jinja2_filter_create_data_attributes(coll_fieldcat: dict, record: dict, fil
     return db.create_form_data_attributes(coll_fieldcat, record, filter_postfix)
 
 
-@app.template_filter('get_entity_select_field')
-def _jinja2_filter_get_entity_select_field(entity_id, collection_name):
-    return db.get_db_entity_select_field(entity_id, collection_name)
+@app.template_filter('get_foreign_value')
+def _jinja2_filter_get_foreign_value(entity_id, collection_name):
+    return db.get_foreign_value(entity_id, collection_name)
 
 
 # inspired by https://stackoverflow.com/questions/4830535/how-do-i-format-a-date-in-jinja2

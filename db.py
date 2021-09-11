@@ -1,5 +1,6 @@
 import os
 import json
+from flask import g
 from datetime import datetime
 
 # envDB.py should exist only in Development
@@ -21,12 +22,69 @@ def get_data_from_json_file(file_name):
         data = json.loads(f.read())
     return data
 
+
+def get_collection(collection_name):
+    collection_file_name = fieldcatalog[collection_name]["file_name"]
+    file_name = os.path.join(dbConfig["OS_DATA_PATH"], collection_file_name)
+    records = get_data_from_json_file(file_name)
+    convert_field_values_in_collection(collection_name, records)
+    return records
+
+
+def get_interviews_all():
+    return get_collection(INTERVIEWS)
+
+
+def get_question_sets_all():
+    return get_collection(QUESTION_SETS)
+
+
 fieldcatalog = get_data_from_json_file( os.path.join(dbConfig["OS_DATA_PATH"], 
                                                      dbConfig["FIELDCATALOG_FILENAME"]))
 
 
 def get_fields_from_fieldcatalog(collection_name):
     return fieldcatalog[collection_name]['dbfields']
+
+
+def get_lookup_ext_to_int(collection_name):
+    if not getattr(g, "_ext_to_int_lookups", None):
+        g._ext_to_int_lookups = {}
+    records = getattr(g._ext_to_int_lookups, collection_name, None)
+    if records is None:
+        coll = get_collection(collection_name)
+        if coll:
+            coll_fieldcatalog = fieldcatalog[collection_name]
+            select_field = coll_fieldcatalog.get('select_field', None)
+            if select_field:
+                records = {c[select_field]: c['_id'] for c in coll}
+            else:
+                records = {}
+            g._ext_to_int_lookups[collection_name] = records
+    return records
+
+
+def get_lookup_int_to_ext(collection_name):
+    if not getattr(g, "_int_to_ext_lookups", None):
+        g._int_to_ext_lookups = {}
+    records = getattr(g._int_to_ext_lookups, collection_name, None)
+    if records is None:
+        coll = get_collection(collection_name)
+        if coll:
+            coll_fieldcatalog = fieldcatalog[collection_name]
+            select_field = coll_fieldcatalog.get('select_field', None)
+            if select_field:
+                records = {c['_id'] : c[select_field] for c in coll}
+            else:
+                records = {}
+            g._int_to_ext_lookups[collection_name] = records
+    return records
+
+
+def get_question_set_names():
+    set_names_dict = get_lookup_int_to_ext(QUESTION_SETS)
+    set_names = set_names_dict.values()
+    return set_names
 
 
 def get_db_field_type_lookup_triples(collection_name, field_names):
@@ -41,13 +99,14 @@ def get_db_field_type_lookup_triples(collection_name, field_names):
     return triples
 
 
-def convert_field_values_in_interviews(collection_name, records):
-    field_names = ['date']
-    field_type_lookup_triples = get_db_field_type_lookup_triples(collection_name, field_names)
-    for record in records:
-        # convert From Date isodatestring to datetime
-         for field, type, lookup in field_type_lookup_triples:
-            translate_external_to_internal(field, type, lookup, record)
+def convert_field_values_in_collection(collection_name, records):
+    field_names = fieldcatalog[collection_name].get("convert_fields", None)
+    if field_names:
+        field_type_lookup_triples = get_db_field_type_lookup_triples(collection_name, field_names)
+        for record in records:
+            # convert From Date isodatestring to datetime
+            for field, type, lookup in field_type_lookup_triples:
+                translate_external_to_internal(field, type, lookup, record)
     return records
 
 def translate_external_to_internal(source_field_name, input_type, lookup_collection_name, record):
@@ -62,34 +121,11 @@ def translate_external_to_internal(source_field_name, input_type, lookup_collect
             internal_value = datetime.fromisoformat(external_value)
 
     else:
-        lookup = get_db_select_field_lookup(lookup_collection_name)
-        internal_value = lookup.get(external_value, None)
+        lookup_table = get_lookup_ext_to_int(lookup_collection_name)
+        internal_value = lookup_table.get(external_value, None)
 
     if internal_value:
         record[source_field_name] = internal_value        
-
-
-def get_interviews_all():
-    collection_name = INTERVIEWS
-    collection_file_name = fieldcatalog[collection_name]["file_name"]
-    file_name = os.path.join(dbConfig["OS_DATA_PATH"], collection_file_name)
-    records = get_data_from_json_file(file_name)
-    convert_field_values_in_interviews(collection_name, records)
-    return records
-
-
-def get_question_sets_all():
-    file_name = os.path.join(dbConfig["OS_DATA_PATH"], fieldcatalog[QUESTION_SETS]["file_name"])
-    return get_data_from_json_file(file_name)
-
-
-def get_question_set_names():
-    questions = get_question_sets_all()
-    set_names = []
-    for question in questions:
-        for row in question["questions"]:
-            set_names.append(row["setname"])
-    return list(set(set_names))
 
 
 def create_form_data_attributes(coll_fieldcat: dict, record: dict, filter_postfix: str):
@@ -102,17 +138,9 @@ def create_form_data_attributes(coll_fieldcat: dict, record: dict, filter_postfi
     return attributes
 
     
-def get_db_entity_select_field(entity_id, collection_name):
-    select_field_name = fieldcatalog[collection_name]['select_field']
-    file_name = os.path.join(dbConfig["OS_DATA_PATH"], fieldcatalog[QUESTION_SETS]["file_name"])
-    collection = get_data_from_json_file(file_name)
-    try:
-        entity_old = collection.find(lambda x : x._id==entity_id)
-        if entity_old:
-            return entity_old[select_field_name]
-    except:
-        pass
-    return ""
+def get_foreign_value(entity_id, collection_name):
+    lookup = get_lookup_int_to_ext(collection_name)
+    return lookup.get(entity_id, "")
 
 
 def get_db_record_by_id(collection_name, record_id):
