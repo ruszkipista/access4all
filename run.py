@@ -23,6 +23,12 @@ app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", "False").lower() \
 def index():
     return render_template("index.html")
 
+
+@app.route("/onboarding")
+def onboarding():
+    return render_template("onboarding.html")
+
+
 @app.route("/interviews")
 def interviews():
     interviews         = db.get_interviews_all()
@@ -74,6 +80,16 @@ def delete_record(collection_name, record_id):
         entity_name = db.get_db_entity_name(collection_name)
         flash(f"Deleted one {entity_name} record", "info")
     return redirect(url_for('maintain', collection_name=collection_name))
+
+
+@app.route("/results")
+def results():
+    interviews         = db.get_interviews_all()
+    return render_template(
+        "results.html", 
+        collection_name    = db.INTERVIEWS,
+        records            = interviews,
+    )
 
 
 @app.errorhandler(404)
