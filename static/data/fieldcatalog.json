@@ -9,6 +9,7 @@
         {"name": "position",    "heading": "Position",    "input_type": "text"},
         {"name": "applicant",   "heading": "Applicant",   "input_type": "text"},
         {"name": "interviewer", "heading": "Interviewer", "input_type": "text"},
+        {"name": "interviewer_email", "heading": "Interviewer Email", "input_type": "email"},
         {"name": "question_set_id", "heading": "Question Set", "input_type": "select", "values": "question_sets"},
         {"name": "date",        "heading": "Date",        "input_type": "date"}
     ],

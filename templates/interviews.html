@@ -33,12 +33,8 @@
             <!-- ICON -->
               <i class="{{ record['icon'] }} fa-2x"></i>
             {% endif %}
-  
-            {% if field_input_type=='text' or field_input_type=='number' or field_input_type=='auto_increment' %}
-            <!-- TEXT or NUMBER type -->
-              {{ record[field['name']] }}
-  
-            {% elif field_input_type=='date' %}
+    
+            {% if field_input_type=='date' %}
             <!-- DATE type -->
               {{ record[field['name']]|datetime_to_str('%d/%m/%Y') }}
   
@@ -53,7 +49,11 @@
             <!-- SELECT type -->
               {{ record[field['name']]|get_foreign_value(field['values']) }}
               {% endif %}
-              
+
+            {% else %}
+            <!-- TEXT like type -->
+              {{ record[field['name']] }}
+             
             {% endif %}
           </td>
           {% endfor %}
