@@ -4,4 +4,5 @@ $(document).ready(function () {
         $('.header-burger, .header-menu').toggleClass('active');
         $('body').toggleClass('lock')
     });
+    $(".copyright").text(new Date().getFullYear())
 });
