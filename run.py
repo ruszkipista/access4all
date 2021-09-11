@@ -34,6 +34,10 @@ def interviews():
         fieldcatalog       = db.fieldcatalog,
         question_set_names = question_set_names)
 
+@app.route("/questions")
+def questions():
+    return render_template("questions.html")
+
 
 @app.route("/update/<collection_name>/<record_id>", methods=['GET', 'POST'])
 def update_record(collection_name, record_id):
