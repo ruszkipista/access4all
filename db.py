@@ -143,12 +143,14 @@ def get_foreign_value(entity_id, collection_name):
     return lookup.get(entity_id, "")
 
 
-def get_db_record_by_id(collection_name, record_id):
-    pass
+def get_record_by_id(collection_name, record_id):
+    coll = get_collection(collection_name)
+    return next((rec for rec in coll if rec["_id"]==record_id), None)
 
 
-def get_db_entity_name(collection_name):
-    pass
+def get_entity_name(collection_name):
+    coll_fieldcatalog = fieldcatalog[collection_name]
+    return coll_fieldcatalog["entity_name"]
 
 
 def save_record_to_db(request, collection_name, record):
