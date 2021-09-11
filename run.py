@@ -52,10 +52,14 @@ def update_interview(record_id):
         if not result.record:
             return redirect(url_for('interviews'))
 
+    question_set_id = record.get("question_set_id", None)
+    question_set = db.get_record_by_id(db.QUESTION_SETS, question_set_id)
+
     return render_template(
         "questions.html",
-        collection_name=collection_name,
-        record=record
+        collection_name = collection_name,
+        interview       = record,
+        question_set    = question_set
     )
 
 
