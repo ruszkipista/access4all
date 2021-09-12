@@ -9,10 +9,13 @@
     box-sizing: border-box;
 }
 
-html,
 body {
-    height: 100%;
+    min-height:100%; 
+    position:relative; 
+    padding-bottom:6.2rem;
 }
+
+
 
 
 /*-------NAVBAR------*/
@@ -188,28 +191,56 @@ body {
 
 }
 
+.content {
+    margin-top: 50px;
+}
 .background {
-    background: black;
-    height: 100vh;
+    position: relative;
 }
 
 .fsbg{ 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
+    max-height: 600px;
     width: 100%;
-    opacity: 0.5;
 }
 
-.text-section {
+.text-box {
     position: absolute;
     top: 30%;
     left: 30%;
     transform: translate(-50%, -50%);
-    color: #fff;
+    color: #131925;
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
+  }
+
+  .text-box p {
+      text-transform: none;
+  }
+
+  #about i {
+   color: #789fbb
+   ;
+  }
+  
+.section-heading {
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    color: #131925;
+    font-weight: 400;
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2rem;
+
+}
+
+  .section-text {
+      color: #535252;
+      font-family: "Lato", sans-serif;
+      font-size: 16px;
+      padding: 10px;
   }
 
 /*-------QUESTIONS---------*/
@@ -284,20 +315,21 @@ select {
     margin: 0 10px;
 }
 
-
   /*-------FOOTER---------*/
 
 footer {
     width: 100%;
     height: 6.2rem;
-    background-color: #1e698d;
-    margin-top: 1.5rem;
+    background-color: #c2d5db;
+    position: absolute; 
+    left: 0 ; right: 0; bottom: 0; 
+    
 }
 
 .social-media {
     display: flex;
     justify-content: center;
-    color: #f9f8f6;
+    color: #1e698d;
 }
 
 .sm-icon {
@@ -305,14 +337,14 @@ footer {
     margin-bottom: 0.7rem;
     margin-right: 3rem;
     text-decoration: none;
-    color: #f9f8f6;
+    color: #1e698d;
 }
 
 .sm-icon a {
-    color: #f9f8f6;
+    color: #1e698d;
     font-size: 1.7rem;
     border-radius: 50%;
-    border: solid #f9f8f6;
+    border: solid #1e698d;
     width: 3rem;
     height: 3rem;
     text-align: center;
@@ -340,6 +372,20 @@ footer {
 
 /*-------for tablets---------*/
 @media(max-width:768px) {
+    .text-box {
+        left: 40%;
+        bottom: 50%;
+      }
+    .text-box h2 {
+        font-size: 1rem;
+      }
+    .text-box p {
+        font-size: 0.8rem;
+      }
+      .text-box .btn {
+        font-size: 0.7rem;
+      }
+
     .sm-icon {
         margin-right: 1rem;
         font-size: 12px;

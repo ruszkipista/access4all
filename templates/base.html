@@ -2,25 +2,29 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <link rel="shortcut icon" href="https://www.accessforalluk.com/wp-content/uploads/2017/09/Access-for-all-uk-logo-16px.png" type="image/x-icon">
-  <!-- Bootstrap 5  -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <title>Access For All</title>
-
-  <link rel="stylesheet" href="{{ url_for('static', filename='./css/style.css') }}" type="text/css">
-  {% block head %}{% endblock %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <link rel="shortcut icon"
+        href="https://www.accessforalluk.com/wp-content/uploads/2017/09/Access-for-all-uk-logo-16px.png"
+        type="image/x-icon">
+    <!-- Bootstrap 5  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Slider CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <title>Access For All</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/style.css') }}" type="text/css">
+    {% block head %}{% endblock %}
 </head>
 
 <body>
+
     <!--NAVIGATION-->
     <header class="header">
         <div class="content-container">
             <div class="header-body">
-                <a href="index.html" class="header-logo">
-                <img class="logo_img" src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
+                <a href="{{ url_for('index') }}" class="header-logo">
+                    <img class="logo_img" src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
                 </a>
                 <div class="header-burger">
                     <span></span>
@@ -37,8 +41,8 @@
                             <a href="{{ url_for('interviews') }}" class="menu-item">Questionare</a>
                         </li>
                         <li>
-                        <a href="{{ url_for('results') }}" class="menu-item">Results</a>
-                    </li>
+                            <a href="{{ url_for('results') }}" class="menu-item">Results</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -89,6 +93,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--Slide effect-->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/585c251878.js"></script>
     <!-- Custom scripts -->
