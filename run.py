@@ -35,8 +35,8 @@ def interviews():
     return render_template(
         "interviews.html", 
         collection_name    = db.INTERVIEWS,
-        records            = interviews,
         fieldcatalog       = db.fieldcatalog,
+        records            = interviews,
         question_set_names = question_set_names)
 
 @app.route("/questions/<record_id>", methods=['GET', 'POST'])
@@ -63,6 +63,7 @@ def update_interview(record_id):
     return render_template(
         "questions.html",
         collection_name = collection_name,
+        fieldcatalog    = db.fieldcatalog,
         interview       = record,
         question_set    = question_set
     )
@@ -83,7 +84,7 @@ def delete_record(collection_name, record_id):
 
 @app.route("/results")
 def results():
-    interviews         = db.get_interviews_all()
+    interviews = db.get_interviews_all()
     return render_template(
         "results.html", 
         collection_name    = db.INTERVIEWS,
