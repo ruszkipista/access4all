@@ -1,0 +1,7 @@
+[
+    {"_id":1, "grade": "unsatisfactory"},
+    {"_id":2, "grade": "reasonable"},
+    {"_id":3, "grade": "good"},
+    {"_id":4, "grade": "very good"},
+    {"_id":5, "grade": "excellent"}
+]
