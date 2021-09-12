@@ -1,5 +1,7 @@
 # Access For All
 
+This app was created by Debbie, Ivana, Jack, Slava and Istvan who took part in the Code Institute hackathon in September 2021.  The theme was to create an app for employers to use to increase inclusivity and accessibility for all employees.  In line with this theme we decided to create an app for an interviewer to use which gave them the facility to record their scores  and notes from a group of questions for each applicant and also helped them see how candidates were ranked.  Onboarding information would also be provided so that candidates queries about onboarding should they be successful at interview could be answered quickly.
+
 ## Contents
 - [1. User experience design](#1-user-experience-design "1. UX design")
   - [1.1 Strategy Plane](#11-strategy-plane "1.1 Strategy Plane")
@@ -19,6 +21,8 @@
 ## 1. User Experience design
 ### 1.1 Strategy Plane
 Stakeholders of the website:
+Coders in the hackathon:  Istvan, Slava, Jack, Ivana and Debbie.
+CI organisers and their guests from SODA.
 
 #### 1.1.1 Goals and Objectives of Stakeholders (users)
 |User|Goals, Needs, Objectives|
@@ -27,9 +31,17 @@ Stakeholders of the website:
 ### 1.2 Scope plane
 
 ### 1.3 User Stories
-* As a ... I want to ..., so I can ...
+* As a user I want to be able to enter candidate scores and notes in interviews so I can compare candidates easily to see who is a good fit for the job advertised.
+* As a user I want to be able to run the app on a desktop or mobile device.
+* As a user I want to have onboarding information on another page on the app so that I can talk to candidates about the onboarding process during the time they have to ask questions about the company.
+* As a user I want to have a report summarising all candidates scores produced from my input so that I can compare candidates easily to see who is a good fit for the job advertised.
 
 ### 1.4 Structure plane
+* As a user I want to be able to enter candidate scores and notes in interviews.
+Acceptance criteria:  Entry page for candidates should be clear and easy to use.
+Implementation:  I want to go to the page on the app and enter my name as an interviewer, the candidates name and their scores and notes and save this information.
+
+
 
 ### 1.5 Skeleton plane
 
@@ -57,22 +69,8 @@ Stakeholders of the website:
  
 ### Deployment in development environment
 
-#### 7.0 Python and Git
+#### 7.1 Python and Git
 Make sure, that [Python](https://www.python.org/downloads/) and [Git](https://git-scm.com/downloads) are installed on your computer
-
-### 7.1 Set up the MongoDB-Atlas hosted database
-
-* Sign up for a free account on [MongoDB](https://www.mongodb.com/)
-* create a new organisation and a new project
-* inside the project at Database Deployments, create a new cluster
-  * choose Shared / free tier cloud provider and region / M0 tier / choose cluster name
-* inside the newly created cluster create a database, e.g. `access4all`
-* in Deployment Security / Database Access, create a user with password authentication, select role `readWriteAnyDatabase`
-
-Note down the following details:
-- cluster name
-- database name
-- database username and password
 
 #### 7.2 Clone the project's GitHub repository
 
@@ -101,17 +99,6 @@ os.environ.setdefault("PORT",             "5500")
 os.environ.setdefault("FLASK_DEBUG",      "True")
 ```
 The `<secret key>` can be any random character string from your keyboard.
-
-Create file `envDB.py` into the root of the project folder with the following content:
-```
-import os
-os.environ.setdefault("MONGO_CLUSTER",    "<cluster name>")
-os.environ.setdefault("MONGO_DB_NAME",    "<database name>")
-os.environ.setdefault("MONGO_DB_USER",    "<user name>")
-os.environ.setdefault("MONGO_DB_PASS",    "<password>")
-os.environ.setdefault("MONGO_INIT",       "True")
-```
-Take `<cluster name>`, `<username>`, `<password>` from the MongoDB creation item at 7.1
  
 #### 7.4 Set up the Python environment
 In your development environment, upgrade `pip` if needed
@@ -130,7 +117,7 @@ pip install -r requirements.txt
 ```
 #### 7.5 Start the web server:
 ```
-python app.py
+python run.py
 ```
 
 ### Deployment on Heroku
@@ -150,11 +137,7 @@ Follow these steps to deploy the app from GitHub to Heroku:
 - In the GitHub authorization popup window login into GitHub with your GitHub username and click on `Authorize Heroku` button
 - Type in your repo name and click `search`. It lists your repos. Choose the one and click on `connect` next to it.
 - either enable automatic deployment on every push to the chosen branch or stick to manual deployment
-- go to app/Settings page, click on `Reveal Config Vars` and enter the following variables and their values from the `envWS.py` and `envDB` files:
+- go to app/Settings page, click on `Reveal Config Vars` and enter the following variables and their values from the `envWS.py` file:
   * FLASK_SECRET_KEY
-  * MONGO_CLUSTER
-  * MONGO_DB_NAME
-  * MONGO_DB_PASS
-  * MONGO_DB_USER
 
 ## 8. Credits

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<form id="questions-form" method="POST" action="">
+
+    <h1>Enter all fields below</h1>
+    
+    <section id="candidates">
+        <label for="candidate">Candidate Name:</label>
+        <input type="text" id="candidate" name="Candidate_Name"  readonly>
+    </section>
+
+    <section id="questions">
+        <div class="section-one">
+            <label for="first-set" class="question-header">Section1</label>
+            <div class="flex-container">
+                <p class="question">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo repellendus rerum ex ratione laudantium et.</p>
+                <select name="first-set" id="first-set">
+                    <option value="First_Set_Score">1</option>
+                    <option value="First_Set_Score">2</option>
+                    <option value="First_Set_Score">3</option>
+                    <option value="First_Set_Score">4</option>
+                    <option value="First_Set_Score">5</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section-two">
+            <label for="second-set" class="question-header">Section 2</label>
+            <div class="flex-container">
+                <p class="question">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, expedita deleniti? Dolorem quia illo doloribus!</p>
+                <select name="second-set" id="second-set">
+                    <option value="Second_Set_Score">1</option>
+                    <option value="Second_Set_Score">2</option>
+                    <option value="Second_Set_Score">3</option>
+                    <option value="Second_Set_Score">4</option>
+                    <option value="Second_Set_Score">5</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section id="interviewer">
+        <label for="interviewer-name">Interviewer Name:</label>
+            <input type="text" name="interviewer_name" id="interviewer-name" readonly>
+        <label for="interviewer-email">Interviewer Email:</label>
+            <input type="text" name="interviewer_email" id="interviewer-email" readonly>
+    </section>
+
+    <section id="notes">
+        <label for="note">Notes:</label>
+            <textarea name="notes" id="note" cols="40" rows="5"></textarea>
+    </section>
+
+</form>
+
+{% endblock %}

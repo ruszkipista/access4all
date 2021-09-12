@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+{% set filter_postfix = "filter" %}
+{% set coll_fieldcat = fieldcatalog[collection_name] %}
+
+<div class="mt-5">&nbsp;</div>
+<h1 class="text-center">Maintain {{ coll_fieldcat['description'] }}</h1>
+
+<!-- TABLE -->
+{% if records %}
+<div class="row m-0 p-0">
+    <div class="card col-sm-12 col-lg-8 offset-lg-2 my-3">
+      <table class="table">
+        <tr>
+          {% for field in coll_fieldcat['dbfields'] %}
+          <th>{{ field['heading'] }}</th>
+          {% endfor %}
+          <th class="text-center">Actions</th>
+        </tr>
+  
+        {% for record in records %}
+        <tr data-{{ filter_postfix }} {{ coll_fieldcat | create_data_attributes(record,filter_postfix) }}>
+          {% for field in coll_fieldcat['dbfields'] %}
+          {% set field_input_type = field['input_type'] %}
+          {% if field_input_type=='changedby' %}{% set field_input_type = 'lookup' %}{% endif %}
+          <td>
+            {% if field['name']=='icon' %}
+            <!-- ICON -->
+              <i class="{{ record['icon'] }} fa-2x"></i>
+            {% endif %}
+    
+            {% if field_input_type=='date' %}
+            <!-- DATE type -->
+              {{ record[field['name']]|datetime_to_str('%d/%m/%Y') }}
+  
+            {% elif field_input_type=='checkbox' %}
+              {% if record[field['name']] %}&nbsp;
+            <!-- CHECKBOX type -->
+              <i class="far fa-check-square" data-mdb-toggle="tooltip" data-mdb-placement="right" title="{{ field['heading'] }}"></i>
+              {% endif %}
+  
+            {% elif field_input_type=='select' %}
+              {% if record[field['name']] %}
+            <!-- SELECT type -->
+              {{ record[field['name']]|get_foreign_value(field['values']) }}
+              {% endif %}
+
+            {% else %}
+            <!-- TEXT like type -->
+              {{ record[field['name']] }}
+             
+            {% endif %}
+          </td>
+          {% endfor %}
+          <td class="text-center">
+              <a href="{{ url_for('update_interview', record_id=record['_id']) }}">
+                <i class="fas fa-edit fa-lg ms-1" title="Edit"></i>
+              </a>
+              <a href="{{ url_for('delete_record', collection_name=collection_name, record_id=record['_id']) }}">
+                <i class="fas fa-trash-alt fa-lg text-danger" title="Delete"></i>
+              </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+</div>
+  
+{% endif %}
+
+{% endblock %}
