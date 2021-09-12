@@ -280,6 +280,45 @@ body {
     margin-left: 10px;
 }
 
+/*-------ONBOARDING---------*/
+
+#onboard {
+    font-family: "Montserrat", sans-serif;
+    color: #131925;
+    font-weight: 400;
+    text-align: center;
+    font-size: 2rem;
+    padding: 10px;
+}
+
+.points {
+    font-family: "Montserrat", sans-serif;
+    color:  #131925;
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin-left: 10px;
+    width: 80%;
+}
+
+#stages {
+    font-family: "Montserrat", sans-serif;
+    color: #1e698d;
+    font-weight: 400;
+    font-size: 1rem;
+    margin-left: 10px;
+    width: 80%;
+}
+
+.process {
+    font-family: "Montserrat", sans-serif;
+    color: #1e698d;
+    font-weight: 400;
+    text-align: justify;
+    font-size: 1rem;
+    margin-left: 10px;
+    width: 80%;
+}
+
   /*-------FOOTER---------*/
 
 footer {
