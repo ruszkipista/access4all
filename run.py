@@ -33,7 +33,6 @@ def interviews():
     return render_template(
         "interviews.html", 
         collection_name    = db.INTERVIEWS,
-        fieldcatalog       = db.fieldcatalog,
         viewfields         = db.get_viewfields(db.INTERVIEWS),
         records            = db.get_interviews_all(),
         question_set_names = db.get_question_set_names()
@@ -64,7 +63,6 @@ def update_interview(record_id):
     return render_template(
         "questions.html",
         collection_name = collection_name,
-        fieldcatalog    = db.fieldcatalog,
         interview       = record,
         question_set    = question_set
     )
@@ -83,6 +81,11 @@ def delete_record(collection_name, record_id):
     return redirect(url_for('interviews'))
 
 
+@app.route("/create/<collection_name>", methods=['POST'])
+def create_record(collection_name):
+    return redirect(url_for('interviews'))
+
+
 @app.route("/results")
 def results():
     interviews = db.get_interviews_all()
@@ -97,9 +100,13 @@ def results():
 def page_not_found(e):
     return redirect(url_for("index"))
 
-@app.template_filter('create_data_attributes')
-def _jinja2_filter_create_data_attributes(coll_fieldcat: dict, record: dict, filter_postfix: str):
-    return db.create_form_data_attributes(coll_fieldcat, record, filter_postfix)
+
+@app.context_processor
+def context_variables():
+    return dict(
+        fieldcatalog = db.fieldcatalog,
+        buffer = {coll: db.get_lookup_int_to_ext(coll) for coll in db.get_buffered_collections()}
+    )
 
 
 @app.template_filter('get_foreign_value')

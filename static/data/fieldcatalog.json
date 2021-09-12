@@ -24,6 +24,7 @@
     "entity_name": "question_set",
     "description": "Question Sets",
     "file_name":   "question_sets.json",
+    "buffer_lookup":true,
     "dbfields":[
         {"name": "_id",         "heading": "ID#",          "input_type": "auto_increment"},
         {"name": "setname",     "heading": "Question Set", "input_type": "text"}
@@ -36,6 +37,7 @@
     "entity_name": "grade",
     "description": "Grades",
     "file_name":   "grades.json",
+    "buffer_lookup":true,
     "dbfields":[
         {"name": "_id",    "heading": "ID#",   "input_type": "auto_increment"},
         {"name": "grade",  "heading": "Grade", "input_type": "text"}

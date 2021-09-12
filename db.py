@@ -28,6 +28,7 @@ def get_collection_file_path(collection_name):
     file_name = fieldcatalog[collection_name][dbConfig["FILE_NAME"]]
     return os.path.join(dbConfig["OS_DATA_PATH"], file_name)
 
+
 def get_data_from_json_file(file_name):
     data = None
     with open(file_name, mode='r', encoding="utf-8") as f:
@@ -145,6 +146,10 @@ def get_collection(collection_name):
 fieldcatalog = get_collection(dbConfig["FIELDCATALOG"])
 
 
+def get_buffered_collections():
+    return [coll for coll, fcat in fieldcatalog.items() if fcat.get('buffer_lookup', None)]
+
+
 def get_interviews_all():
     return get_collection(INTERVIEWS)
 
@@ -183,17 +188,7 @@ def get_db_field_type_lookup_triples(collection_name, field_names):
         triples.append((field_name, input_type, lookup_collection_name))
     return triples 
 
-
-def create_form_data_attributes(coll_fieldcat: dict, record: dict, filter_postfix: str):
-    attributes = ""
-    if coll_fieldcat.get('filter', None):
-        for field in coll_fieldcat['fields']:
-            if field['name'] in coll_fieldcat['filter']:
-                attributes += "data-" + field['name'] + "_" + filter_postfix \
-                    + "=" + str(record[field['name']])
-    return attributes
-
-    
+  
 def get_foreign_value(entity_id, collection_name):
     lookup = get_lookup_int_to_ext(collection_name)
     return lookup.get(entity_id, "")
