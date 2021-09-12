@@ -9,6 +9,19 @@
 {% set coll_fieldcat = fieldcatalog[collection_name] %}
 
 <div class="mt-5">&nbsp;</div>
+<!-- FLASH MESSAGES -->
+<section>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="row m-0 p-0"></div>
+        {% for category, message in messages %}
+        <div class="alert alert-{{category}} text-center">{{ message }}</div>
+        {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+</section>
+
 <h1 class="text-center">Maintain {{ coll_fieldcat['description'] }}</h1>
 
 <!-- TABLE -->
@@ -18,7 +31,9 @@
       <table class="table">
         <tr>
           {% for field in coll_fieldcat['dbfields'] %}
+          {% if not viewfields or field['name'] in viewfields %}
           <th>{{ field['heading'] }}</th>
+          {% endif %}
           {% endfor %}
           <th class="text-center">Actions</th>
         </tr>
@@ -26,8 +41,8 @@
         {% for record in records %}
         <tr data-{{ filter_postfix }} {{ coll_fieldcat | create_data_attributes(record,filter_postfix) }}>
           {% for field in coll_fieldcat['dbfields'] %}
+          {% if not viewfields or field['name'] in viewfields %}
           {% set field_input_type = field['input_type'] %}
-          {% if field_input_type=='changedby' %}{% set field_input_type = 'lookup' %}{% endif %}
           <td>
             {% if field['name']=='icon' %}
             <!-- ICON -->
@@ -41,7 +56,7 @@
             {% elif field_input_type=='checkbox' %}
               {% if record[field['name']] %}&nbsp;
             <!-- CHECKBOX type -->
-              <i class="far fa-check-square" data-mdb-toggle="tooltip" data-mdb-placement="right" title="{{ field['heading'] }}"></i>
+              <i class="far fa-check-square" title="{{ field['heading'] }}"></i>
               {% endif %}
   
             {% elif field_input_type=='select' %}
@@ -56,12 +71,13 @@
              
             {% endif %}
           </td>
+          {% endif %}
           {% endfor %}
           <td class="text-center">
-              <a href="{{ url_for('update_interview', record_id=record['_id']) }}">
-                <i class="fas fa-edit fa-lg ms-1" title="Edit"></i>
-              </a>
-              <a href="{{ url_for('delete_record', collection_name=collection_name, record_id=record['_id']) }}">
+              <a href="{{ url_for('update_interview', record_id=record['_id']) }}" class="me-2">
+                <i class="fas fa-edit fa-lg" title="Edit"></i></a>
+              <a href="{{ url_for('delete_record', collection_name=collection_name, record_id=record['_id']) }}"
+                 data-bs-toggle="modal" data-bs-target="#modal-confirm">
                 <i class="fas fa-trash-alt fa-lg text-danger" title="Delete"></i>
               </a>
           </td>
@@ -70,7 +86,23 @@
       </table>
     </div>
 </div>
-  
 {% endif %}
+
+<!-- Modal -->
+<div class="modal fade" id="modal-confirm" tabindex="-1" aria-labelledby="modal-confirm-title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-confirm-title">Confirm deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">This operation will remove the selected record from database without checking if any record still referencing it.</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-form-method='POST'>Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

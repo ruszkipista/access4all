@@ -8,6 +8,8 @@
     <link rel="shortcut icon"
         href="https://www.accessforalluk.com/wp-content/uploads/2017/09/Access-for-all-uk-logo-16px.png"
         type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <!-- Bootstrap 5  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Slider CSS -->
@@ -38,7 +40,7 @@
                             <a href="{{ url_for('onboarding') }}" class="menu-item">Onboarding</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('interviews') }}" class="menu-item">Questionare</a>
+                            <a href="{{ url_for('interviews') }}" class="menu-item">Questionnaire </a>
                         </li>
                         <li>
                             <a href="{{ url_for('results') }}" class="menu-item">Results</a>
@@ -48,19 +50,6 @@
             </div>
         </div>
     </header>
-
-    <!-- FLASH MESSAGES -->
-    <section>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="row m-0 p-0"></div>
-            {% for category, message in messages %}
-            <div class="alert alert-{{category}} text-center">{{ message }}</div>
-            {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-    </section>
 
     <main class="content">
     {% block body %} 
@@ -72,12 +61,12 @@
         <div class="social-media">
             <div class="sm-icon">
                 <a href="#" target="_blank">
-                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
             </div>
             <div class="sm-icon">
                 <a href="#" target="_blank">
-                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                    <i class="fab fa-instagram" aria-hidden="true"></i>
                 </a>
             </div>
             <div class="sm-icon">
@@ -95,8 +84,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!--Slide effect-->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!--Font Awesome-->
-    <script src="https://kit.fontawesome.com/585c251878.js"></script>
     <!-- Custom scripts -->
     <script type="text/javascript" src="{{ url_for('static', filename='./js/script.js') }}"></script>
 </body>
