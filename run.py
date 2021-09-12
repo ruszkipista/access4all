@@ -30,14 +30,14 @@ def onboarding():
 
 @app.route("/interviews")
 def interviews():
-    interviews         = db.get_interviews_all()
-    question_set_names = db.get_question_set_names()
     return render_template(
         "interviews.html", 
         collection_name    = db.INTERVIEWS,
-        fieldcatalog       = db.fieldcatalog,
-        records            = interviews,
-        question_set_names = question_set_names)
+        viewfields         = db.get_viewfields(db.INTERVIEWS),
+        records            = db.get_interviews_all(),
+        question_set_names = db.get_question_set_names()
+    )
+
 
 @app.route("/questions/<record_id>", methods=['GET', 'POST'])
 def update_interview(record_id):
@@ -63,7 +63,6 @@ def update_interview(record_id):
     return render_template(
         "questions.html",
         collection_name = collection_name,
-        fieldcatalog    = db.fieldcatalog,
         interview       = record,
         question_set    = question_set
     )
@@ -71,15 +70,20 @@ def update_interview(record_id):
 
 @app.route("/delete/<collection_name>/<record_id>", methods=['POST'])
 def delete_record(collection_name, record_id):
-    record = db.get_db_record_by_id(collection_name, record_id)
+    record = db.get_record_by_id(collection_name, int(record_id))
     if not record:
         flash(f"Record {record_id} does not exist", "danger")
     else:
         # delete record
-        db.delete_db_record(collection_name, record)
-        entity_name = db.get_db_entity_name(collection_name)
+        db.delete_record(collection_name, record)
+        entity_name = db.get_entity_name(collection_name)
         flash(f"Deleted one {entity_name} record", "info")
-    return redirect(url_for('maintain', collection_name=collection_name))
+    return redirect(url_for('interviews'))
+
+
+@app.route("/create/<collection_name>", methods=['POST'])
+def create_record(collection_name):
+    return redirect(url_for('interviews'))
 
 
 @app.route("/results")
@@ -96,9 +100,13 @@ def results():
 def page_not_found(e):
     return redirect(url_for("index"))
 
-@app.template_filter('create_data_attributes')
-def _jinja2_filter_create_data_attributes(coll_fieldcat: dict, record: dict, filter_postfix: str):
-    return db.create_form_data_attributes(coll_fieldcat, record, filter_postfix)
+
+@app.context_processor
+def context_variables():
+    return dict(
+        fieldcatalog = db.fieldcatalog,
+        buffer = {coll: db.get_lookup_int_to_ext(coll) for coll in db.get_buffered_collections()}
+    )
 
 
 @app.template_filter('get_foreign_value')
