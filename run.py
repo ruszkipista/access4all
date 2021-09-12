@@ -70,7 +70,7 @@ def update_interview(record_id):
     )
 
 
-@app.route("/delete/<collection_name>/<record_id>")
+@app.route("/delete/<collection_name>/<record_id>", methods=['POST'])
 def delete_record(collection_name, record_id):
     record = db.get_record_by_id(collection_name, int(record_id))
     if not record:
