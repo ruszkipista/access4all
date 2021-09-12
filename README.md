@@ -21,6 +21,8 @@ This app was created by Debbie, Ivana, Jack, Slava and Istvan who took part in t
 ## 1. User Experience design
 ### 1.1 Strategy Plane
 Stakeholders of the website:
+Coders in the hackathon:  Istvan, Slava, Jack, Ivana and Debbie.
+CI organisers and their guests from SODA.
 
 #### 1.1.1 Goals and Objectives of Stakeholders (users)
 |User|Goals, Needs, Objectives|
@@ -29,9 +31,17 @@ Stakeholders of the website:
 ### 1.2 Scope plane
 
 ### 1.3 User Stories
-* As a ... I want to ..., so I can ...
+* As a user I want to be able to enter candidate scores and notes in interviews so I can compare candidates easily to see who is a good fit for the job advertised.
+* As a user I want to be able to run the app on a desktop or mobile device.
+* As a user I want to have onboarding information on another page on the app so that I can talk to candidates about the onboarding process during the time they have to ask questions about the company.
+* As a user I want to have a report summarising all candidates scores produced from my input so that I can compare candidates easily to see who is a good fit for the job advertised.
 
 ### 1.4 Structure plane
+* As a user I want to be able to enter candidate scores and notes in interviews.
+Acceptance criteria:  Entry page for candidates should be clear and easy to use.
+Implementation:  I want to go to the page on the app and enter my name as an interviewer, the candidates name and their scores and notes and save this information.
+
+
 
 ### 1.5 Skeleton plane
 
