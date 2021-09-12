@@ -30,11 +30,14 @@ def onboarding():
 
 @app.route("/interviews")
 def interviews():
+    records = db.get_interviews_all()
+    if not records:
+        flash("There are no records. Create one below!", 'info')
     return render_template(
         "interviews.html", 
         collection_name    = db.INTERVIEWS,
         viewfields         = db.get_viewfields(db.INTERVIEWS),
-        records            = db.get_interviews_all(),
+        records            = records,
         question_set_names = db.get_question_set_names()
     )
 
@@ -83,6 +86,9 @@ def delete_record(collection_name, record_id):
 
 @app.route("/create/<collection_name>", methods=['POST'])
 def create_record(collection_name):
+    result = db.save_record_from_form_to_db(request, collection_name, {})
+    for m in result.messages:
+        flash(*m)
     return redirect(url_for('interviews'))
 
 

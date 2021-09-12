@@ -3,6 +3,11 @@ import json
 from flask import g
 from datetime import datetime
 
+class Result:
+    def __init__(self, record={}, messages=[]):
+        self.record = record
+        self.messages = messages
+
 # envDB.py should exist only in Development
 if os.path.exists("envDB.py"):
     import envDB
@@ -224,5 +229,80 @@ def save_data_to_json_file(file_name, data):
         f.write(json.dumps(data))
 
 
-def save_record_from_request_to_db(request, collection_name, record):
-    pass
+def get_next_id(collection):
+    id = 0
+    for rec in collection:
+        if id < rec["_id"]:
+            id = rec["_id"]
+    return id + 1
+
+
+def create_record(collection_name, record):
+    collection = get_collection(collection_name)
+    record["_id"] = get_next_id(collection)
+    collection.append(record)
+    update_collection(collection_name, collection)
+    return record
+
+
+def update_record(collection_name, record_old, record_new):
+    collection = get_collection(collection_name)
+    for rec, index in enumerate(collection):
+        if rec["_id"] == record_old["_id"]:
+            record_new["_id"] = record_old["_id"]
+            collection[index] = record_new
+            break
+    update_collection(collection_name, collection)
+
+
+def save_record_from_form_to_db(request, collection_name, record_old):
+    messages = []
+    coll_fieldcatalog = fieldcatalog[collection_name]
+    fields = [field['name'] for field in coll_fieldcatalog['dbfields']]
+    record_new = {f: request.form.get(f) for f in fields
+                  if request.form.get(f, None) is not None and
+                  request.form.get(f) != record_old.get(f, None)}
+
+    for field in coll_fieldcatalog['dbfields']:
+        field_input_type = field.get('input_type', None)
+        if not field_input_type:
+            continue
+        field_name = field['name']
+        field_values = field.get('values', None)
+        # convert date value to datetime object
+        if field_input_type == 'date':
+            record_new[field_name] = request.form.get(field_name, None)
+            translate_external_to_internal(field_name, field_input_type, field_values, record_new)
+        # store foreign key from select-option
+        elif field_input_type == 'select':
+            field_value = record_new.get(field_name, None)
+            if field_value:
+                # convert foreign key to integer
+                record_new[field_name] = int(field_value)
+        # store check box as boolean
+        elif field_input_type == 'checkbox':
+            record_new[field_name] = True if record_new.get(field_name, 'off') == 'on' else False
+
+    if not record_new:
+        messages.append(
+            (f"Did not {'update' if record_old else 'add'} record", "error"))
+    else:
+        if record_old:
+            try:
+                update_record(collection_name, record_old, record_new)
+                messages.append(
+                    (f"Successfully updated one {get_entity_name(collection_name)} record", "success"))
+                record_new = {}
+            except:
+                messages.append((f"Error in update operation!", "danger"))
+        else:
+            try:
+                record_new = create_record(collection_name, record_new)
+                # create empty record - this clears the input fields, because the update was OK
+                record_new = {}
+                messages.append(
+                    (f"Successfully added one {get_entity_name(collection_name)} record", "success"))
+            except:
+                messages.append((f"Error in addition operation!", "danger"))
+
+    return Result(record_new, messages)
