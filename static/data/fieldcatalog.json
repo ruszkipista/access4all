@@ -11,10 +11,14 @@
         {"name": "interviewer", "heading": "Interviewer", "input_type": "text"},
         {"name": "interviewer_email", "heading": "Interviewer Email", "input_type": "email"},
         {"name": "question_set_id", "heading": "Question Set", "input_type": "select", "values": "question_sets"},
-        {"name": "date",        "heading": "Date",        "input_type": "date"}
+        {"name": "date",        "heading": "Date",        "input_type": "date"},
+        {"name": "grades",      "heading": "Grade",       "input_type": "select", "values": "grades"},
+        {"name": "notes",       "heading": "Notes",       "input_type": "textarea"}
     ],
+    "viewfields": ["position", "applicant", "interviewer", "question_set_id", "date"],
     "convert_fields": ["date"]
   },
+
   "question_sets": {
     "collection":  "question_sets",
     "entity_name": "question_set",
@@ -25,5 +29,17 @@
         {"name": "setname",     "heading": "Question Set", "input_type": "text"}
     ],
     "select_field": "setname"
+  },
+
+  "grades": {
+    "collection":  "grades",
+    "entity_name": "grade",
+    "description": "Grades",
+    "file_name":   "grades.json",
+    "dbfields":[
+        {"name": "_id",    "heading": "ID#",   "input_type": "auto_increment"},
+        {"name": "grade",  "heading": "Grade", "input_type": "text"}
+    ],
+    "select_field": "grade"
   }
 }

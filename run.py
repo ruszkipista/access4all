@@ -30,14 +30,15 @@ def onboarding():
 
 @app.route("/interviews")
 def interviews():
-    interviews         = db.get_interviews_all()
-    question_set_names = db.get_question_set_names()
     return render_template(
         "interviews.html", 
         collection_name    = db.INTERVIEWS,
         fieldcatalog       = db.fieldcatalog,
-        records            = interviews,
-        question_set_names = question_set_names)
+        viewfields         = db.get_viewfields(db.INTERVIEWS),
+        records            = db.get_interviews_all(),
+        question_set_names = db.get_question_set_names()
+    )
+
 
 @app.route("/questions/<record_id>", methods=['GET', 'POST'])
 def update_interview(record_id):
@@ -69,17 +70,17 @@ def update_interview(record_id):
     )
 
 
-@app.route("/delete/<collection_name>/<record_id>", methods=['POST'])
+@app.route("/delete/<collection_name>/<record_id>")
 def delete_record(collection_name, record_id):
-    record = db.get_db_record_by_id(collection_name, record_id)
+    record = db.get_record_by_id(collection_name, int(record_id))
     if not record:
         flash(f"Record {record_id} does not exist", "danger")
     else:
         # delete record
-        db.delete_db_record(collection_name, record)
-        entity_name = db.get_db_entity_name(collection_name)
+        db.delete_record(collection_name, record)
+        entity_name = db.get_entity_name(collection_name)
         flash(f"Deleted one {entity_name} record", "info")
-    return redirect(url_for('maintain', collection_name=collection_name))
+    return redirect(url_for('interviews'))
 
 
 @app.route("/results")

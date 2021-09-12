@@ -38,7 +38,7 @@
                             <a href="{{ url_for('onboarding') }}" class="menu-item">Onboarding</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('interviews') }}" class="menu-item">Questionare</a>
+                            <a href="{{ url_for('interviews') }}" class="menu-item">Questionnaire </a>
                         </li>
                         <li>
                             <a href="{{ url_for('results') }}" class="menu-item">Results</a>
@@ -48,19 +48,6 @@
             </div>
         </div>
     </header>
-
-    <!-- FLASH MESSAGES -->
-    <section>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="row m-0 p-0"></div>
-            {% for category, message in messages %}
-            <div class="alert alert-{{category}} text-center">{{ message }}</div>
-            {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-    </section>
 
     <main class="content">
     {% block body %} 
