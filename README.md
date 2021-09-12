@@ -1,6 +1,8 @@
 # Access For All
 
-This app was created by Debbie, Ivana, Jack, Slava and Istvan who took part in the Code Institute hackathon in September 2021.  The theme was to create an app for employers to use to increase inclusivity and accessibility for all employees.  In line with this theme we decided to create an app for an interviewer to use which gave them the facility to record their scores  and notes from a group of questions for each applicant and also helped them see how candidates were ranked.  Onboarding information would also be provided so that candidates queries about onboarding should they be successful at interview could be answered quickly.
+This app was created by Debbie, Ivana, Jack, Slava and Istvan who took part in the Code Institute hackathon in September 2021.  The theme was to create an app for employers to use to increase inclusivity and accessibility for all employees.  Inclusivity and access to work is an important theme for employers to address; people with disabilities make up a very small portion of working employees despite having good skillsets.  Employers miss out on valuable skills that those with disablities have to offer as a result and people with disabilities report that they often find it very difficult to access the work place overall.
+
+ In line with this theme we decided to create an app for an interviewer to use which gave them the facility to record their scores  and notes from a group of questions for each applicant and also helped them see how candidates were ranked.   Questions were designed to be inclusive so that all applicants were able to  Onboarding information would also be provided so that candidates queries about onboarding should they be successful at interview could be answered quickly.
 
 ## Contents
 - [1. User experience design](#1-user-experience-design "1. UX design")
@@ -42,8 +44,8 @@ Acceptance criteria:  Entry page for candidates should be clear and easy to use.
 Implementation:  I want to go to the page on the app and enter my name as an interviewer, the candidates name and their scores and notes and save this information.
 
 
-
 ### 1.5 Skeleton plane
+
 
 ### 1.6 Surface plane
 
