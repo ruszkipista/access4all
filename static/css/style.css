@@ -221,7 +221,8 @@ body {
   }
 
   #about i {
-   color: #1e698d;
+   color: #789fbb
+   ;
   }
   
 .section-heading {
@@ -300,6 +301,20 @@ footer {
 
 /*-------for tablets---------*/
 @media(max-width:768px) {
+    .text-box {
+        left: 40%;
+        bottom: 50%;
+      }
+    .text-box h2 {
+        font-size: 1rem;
+      }
+    .text-box p {
+        font-size: 0.8rem;
+      }
+      .text-box .btn {
+        font-size: 0.7rem;
+      }
+
     .sm-icon {
         margin-right: 1rem;
         font-size: 12px;
