@@ -5,6 +5,72 @@
 
 {% block body %}
 
-<h1>Hello World!</h1>
+<div class="container">
+    <h2 class="section-heading" id="onboard">Onboarding process</h2>
+<div class="row">
+    <div class="col-lg-6 col-12 order-lg-first order-sm-last">
+    <h3 class="sub-heading">Diversity and Inclusiveness<h3>
+        <p class="section-text ps-0 lh-sm" data-aos="fade-right">We are specialised in inclusive onboarding processes. Our main goal is increasing
+                diversity at work place and creating mentorship programs which
+                help companies embrace difference. When companies administer and uphold the precepts of diversity within
+                an organization, it creates a more enriched
+                environment that fosters employee growth, innovation and productivity.
+                <br><br>
+                In parallel with diversity, an inclusive work ecosystem offers unbiased and respectful treatment,
+                regardless of the environment. Inclusion celebrates the
+                things that make all of us different, like age, gender, religion, education, etc. and how these
+                differences offer empowerment and connection. Employees
+                are treated fairly across the board and open to the same opportunities, tools and resources. With widely
+                accepted social mores and office standards as its
+                foundation, inclusion is the act of making an “outsider” feel accepted.
+        </p>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <img class="onb-img" data-aos="fade-left" src="{{ url_for('static', filename='img/onb-1.jpg') }}" alt="">
+    </div>
+        
+    </div>
+            <h2 class="section-heading">Onboarding procedure</h2>
+<div class="row" data-aos="fade-up">
+    <div class="col-lg-6 col-sm-12">
+        <img class="onb-img" src="{{ url_for('static', filename='img/onb-2.jpg') }}" alt="">
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <ul type="1" id="stages">
+            <li class="section-text p-0"> <strong>Pre-onboarding </strong> - When the offer is accepted we will prepare everything for your first day and help
+                you with all the necessary paperwork.
+                
+            </li>
+            <li class="mt-2 section-text p-0">
+              <strong>Welcome on board </strong> - We will keep it simple! On your first day you will meet all your co-workers, we
+                will have team lunch and this will be a day for settling in.
+                We will do everything to make you comfortable and adjust well. We will prepare timetable and agenda
+                for you. 
+                
+            </li>
+            <li class="mt-2 section-text p-0">
+              <strong>Role Training</strong> - We care about your development. You will be provided with a 30 day training. We will
+                assign you a mentor for who will be there to help you with
+                any questions you might have. All onboarding learning materials will be stored
+                safely in a place that you can easily access and refer back to.
+            </li>
+            <li class="mt-2 section-text p-0">
+               <strong>Easing transition to new role</strong> - After 30 days you will start transitioning to the new role, feel
+                more comfortable and be able to
+                start working with the team. 
+            </li>
+        </ul>
+    </div>
+</div>
+            
+            <h2 class="section-heading">Performance measurement</h2>
+            <p class="section-text mb-5 text-center" data-aos="fade-up">We will set clear responsibilities, expactations and smart goals to help you visualize
+                what success, quality, and productivity
+                look like. <br> After 90 days we will conduct a performance review to recognize your efforts so far and help
+                you improve.
+            </p>
+
+</div>
+
 
 {% endblock %}

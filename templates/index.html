@@ -6,11 +6,11 @@
 {% block body %}
 <section id="hero-img">
 <div class="background">
- <img class="fsbg" src="{{ url_for('static', filename='img/fsbg.jpg') }}" alt="">
+ <img class="fsbg" src="{{ url_for('static', filename='img/fsbg.jpg') }}" alt="background">
     <div class="text-box">
  <h2 class="hero-header" data-aos="fade-right">Access for all</h2>
    <p data-aos="fade-right">Check some onboarding staff</p>
-   <a class="btn btn-warning " href="#" data-aos="fade-right">Onboarding</a>
+   <a class="btn btn-warning " href="{{ url_for('onboarding') }}" data-aos="fade-right">Onboarding</a>
   </div>
 </div>
 </section>
@@ -23,15 +23,15 @@
   <div class="row " data-aos="fade-up"> 
     <div class="col-lg-4 col-12 ">
       <h6 class="text-center"><i class="fas fa-handshake fa-3x"></i></h6>
-      <p class="section-text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam nostrum dolorem quod placeat saepe laboriosam harum modi et maxime a obcaecati illum, corporis sequi quae eius exercitationem dolorum? Veritatis, rerum.</p>
+      <p class="section-text"> We are specialised in inclusive onboarding processes. Our main goal is increasing diversity at work place and creating mentorship programs which help companies embrace difference.</p>
     </div>
     <div class="col-lg-4 col-12 ">
       <h6 class="text-center warning"><i class="fas fa-hand-holding-heart fa-3x"></i></h6>
-      <p class="section-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam nostrum dolorem quod placeat saepe laboriosam harum modi et maxime a obcaecati illum, corporis sequi quae eius exercitationem dolorum? Veritatis, rerum.</p>
+      <p class="section-text">All of our hiring managers, interviewers and recruiters have been trained to understand and counteract their unconscious and conscious biases. Our hiring process and use techniques are fair (inclusive language in job ads, blind CV reviews, and standardized questions and scoring in interviews).</p>
     </div>
     <div class="col-lg-4 col-12 ">
       <h6 class="text-center"><i class="fas fa-seedling fa-3x"></i></h6>
-      <p class="section-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam nostrum dolorem quod placeat saepe laboriosam harum modi et maxime a obcaecati illum, corporis sequi quae eius exercitationem dolorum? Veritatis, rerum.</p>
+      <p class="section-text">Our inclusive work ecosystem offers unbiased and respectful treatment, regardless of the environment. Inclusion celebrates the things that make all of us different, like age, gender, religion, education, etc. and how these differences offer empowerment and connection.</p>
     </div>
   </div>
 </div>

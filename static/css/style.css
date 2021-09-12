@@ -11,12 +11,17 @@
 
 body {
     min-height:100%; 
-    position:relative; 
-    padding-bottom:6.2rem;
 }
 
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-
+.content{
+    flex-grow: 1;
+}
 
 /*-------NAVBAR------*/
 .content-container {
@@ -233,7 +238,13 @@ body {
     text-align: center;
     margin: 2rem 0;
     font-size: 2rem;
+}
 
+.sub-heading {
+    font-family: "Montserrat", sans-serif;
+    color: #131925;
+    font-weight: 500;
+    font-size: 1.5rem;
 }
 
   .section-text {
@@ -241,6 +252,26 @@ body {
       font-family: "Lato", sans-serif;
       font-size: 16px;
       padding: 10px;
+  }
+
+/*-------ONBOARDING---------*/
+
+.onb-img {
+    max-height: auto;
+    max-width: 100%;
+}
+
+#stages {
+    list-style: none;
+}
+
+#stages li:before {
+    content: "\f058"; 
+    font-family: FontAwesome;
+    display: inline-block;
+    color: #1e698d;
+    font-size: 1.5rem;
+    padding-right: 5px;
   }
 
 /*-------QUESTIONS---------*/
@@ -321,8 +352,6 @@ footer {
     width: 100%;
     height: 6.2rem;
     background-color: #c2d5db;
-    position: absolute; 
-    left: 0 ; right: 0; bottom: 0; 
     
 }
 
