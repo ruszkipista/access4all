@@ -4,17 +4,24 @@
 {% endblock %}
 
 {% block body %}
+<div class="flex-container section-heading">
 
 <h1>Results of interviews</h1>
 <br>
-{% for interview in records %}
-    <p> {{ interview['applicant'] }}</p>
-    <p>
-    {% for grade in interview['grades'] %}
-        {{ grade }}&nbsp;
+
+    {% for interview in records %}
+        <h4>Applicants name</h4>
+        <p> {{ interview['applicant'] }}</p>
+        <h4>Applicants scores on questions</h4>
+        <p>
+        {% for grade in interview['grades'] %}
+            {{ grade }}&nbsp;
+        {% endfor %}
+        </p>
+        <p>{{interview['notes']}}</p>
     {% endfor %}
-    </p>
-    <p>{{interview['notes']}}</p>
-{% endfor %}
+    <h2>End of candidates results</h2>
+</div>
+
 
 {% endblock %}
