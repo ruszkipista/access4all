@@ -6,14 +6,14 @@
 {% block body %}
 <div class="flex-container section-heading">
 
-    <h3>Results of interviews</h3>
+    <h2>Results of interviews</h2>
     <br>
 
     {% for interview in records %}
         <h4>Applicants name</h4>
-        <p> {{ interview['applicant'] }}</p>
+        <p class="section-heading"> {{ interview['applicant'] }}</p>
         <h4>Applicants scores on questions</h4>
-        <p>
+        <p class="section-heading">
         {% for grade in interview['grades'] %}
             {{ grade }}&nbsp;
         {% endfor %}
