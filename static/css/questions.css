@@ -72,3 +72,22 @@ select {
 #notes label {
     margin: 0 10px;
 }
+
+#submit {
+    width: 100%;
+    text-align: center;
+}
+
+.submit-btn {
+    border: 1px solid black;
+    background: #219EBC;
+    color: white;
+    padding: 0.5rem 1rem ;
+    margin-top: 30px;
+    margin-left: 60px;
+}
+
+.submit-btn:hover {
+    background: none;
+    color: #219EBC;
+}
