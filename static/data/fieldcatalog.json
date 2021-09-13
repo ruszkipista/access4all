@@ -12,7 +12,7 @@
         {"name": "interviewer_email", "heading": "Interviewer Email", "input_type": "email"},
         {"name": "question_set_id", "heading": "Question Set", "input_type": "select", "values": "question_sets"},
         {"name": "date",        "heading": "Date",        "input_type": "date"},
-        {"name": "grades",      "heading": "Grade",       "input_type": "select", "values": "grades"},
+        {"name": "grades",      "heading": "Grade",       "input_type": "select", "values": "grades", "array":true},
         {"name": "notes",       "heading": "Notes",       "input_type": "textarea"}
     ],
     "viewfields": ["position", "applicant", "interviewer", "question_set_id", "date"],

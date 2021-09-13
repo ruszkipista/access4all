@@ -246,9 +246,8 @@ def create_record(collection_name, record):
 
 def update_record(collection_name, record_old, record_new):
     collection = get_collection(collection_name)
-    for rec, index in enumerate(collection):
+    for index,rec in enumerate(collection):
         if rec["_id"] == record_old["_id"]:
-            record_new["_id"] = record_old["_id"]
             collection[index] = record_new
             break
     update_collection(collection_name, collection)
@@ -257,36 +256,47 @@ def update_record(collection_name, record_old, record_new):
 def save_record_from_form_to_db(request, collection_name, record_old):
     messages = []
     coll_fieldcatalog = fieldcatalog[collection_name]
-    fields = [field['name'] for field in coll_fieldcatalog['dbfields']]
-    record_new = {f: request.form.get(f) for f in fields
-                  if request.form.get(f, None) is not None and
-                  request.form.get(f) != record_old.get(f, None)}
-
+    record_new = {}
     for field in coll_fieldcatalog['dbfields']:
-        field_input_type = field.get('input_type', None)
-        if not field_input_type:
-            continue
         field_name = field['name']
-        field_values = field.get('values', None)
-        # convert date value to datetime object
-        if field_input_type == 'date':
-            record_new[field_name] = request.form.get(field_name, None)
-            translate_external_to_internal(field_name, field_input_type, field_values, record_new)
-        # store foreign key from select-option
-        elif field_input_type == 'select':
-            field_value = record_new.get(field_name, None)
+        field_value = request.form.get(field_name,None)
+        field_input_type = field.get('input_type', None)
+
+        if field.get("array", False):
+            record_new[field_name] = []
+            index = 0
+            while True:
+                input_name = field_name+'-'+str(index)
+                field_value = request.form.get(input_name, None)
+                if field_value is None:
+                    break
+                if field_input_type == 'select':
+                    field_value = int(field_value)
+                record_new[field_name].append(field_value)
+                index += 1
+        else:
             if field_value:
-                # convert foreign key to integer
-                record_new[field_name] = int(field_value)
-        # store check box as boolean
-        elif field_input_type == 'checkbox':
-            record_new[field_name] = True if record_new.get(field_name, 'off') == 'on' else False
+                record_new[field_name] = field_value        
+            if not field_input_type:
+                continue
+
+            if field_input_type == 'date':
+                # convert date value to datetime object
+                translate_external_to_internal(field_name, field_input_type, None, record_new)
+            elif field_input_type == 'select':
+                # store foreign key as integer from select-option
+                if field_value:
+                    record_new[field_name] = int(field_value)
+            elif field_input_type == 'checkbox':
+                # store check box as boolean
+                record_new[field_name] = (field_value == 'on')
 
     if not record_new:
         messages.append(
             (f"Did not {'update' if record_old else 'add'} record", "danger"))
     else:
         if record_old:
+            record_new["_id"] = record_old["_id"]
             try:
                 update_record(collection_name, record_old, record_new)
                 messages.append(

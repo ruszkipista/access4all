@@ -59,6 +59,8 @@ def update_interview(record_id):
         # if record is empty, then the update was successful
         if not result.record:
             return redirect(url_for('interviews'))
+        else:
+            record = result.record
 
     question_set_id = record.get("question_set_id", None)
     question_set = db.get_record_by_id(db.QUESTION_SETS, question_set_id)

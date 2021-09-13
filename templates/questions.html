@@ -12,12 +12,12 @@
 
     <section id="questions">
         <label for="position">Position:</label>
-        <input type="text" id="position" name="position"  readonly value="{{interview.position}}">
+        <input type="text" id="position" name="position"  value="{{interview.position}}">
         <label for="candidate" class="ms-2">Candidate Name:</label>
-        <input type="text" id="candidate" name="Candidate_Name"  readonly value="{{interview.applicant}}">
+        <input type="text" id="candidate" name="applicant"  value="{{interview.applicant}}">
         <label for="date" class="ms-2">Date:</label>
-        <input type="date" id="date" name="date" readonly value="{{interview.date|datetime_to_str('%Y-%m-%d')}}">
-        <input type="hidden" name="question_set_id" readonly value="{{interview.question_set_id}}">
+        <input type="date" id="date" name="date" value="{{interview.date|datetime_to_str('%Y-%m-%d')}}">
+        <input type="hidden" name="question_set_id" value="{{interview.question_set_id}}">
     </section>
 
     <section id="questions">
@@ -34,7 +34,7 @@
                 {% set question_index = loop.index0 %}
                 {% for field in coll_fieldcat.dbfields %}
                 {% if field.name == 'grades' %}
-                <select name="{{field.name}}-{{ loop.index0 }}" id="{{field.name}}-{{ question_index }}">
+                <select name="{{field.name}}-{{ question_index }}" id="{{field.name}}-{{ question_index }}">
                     {% set lookup = buffer[field['values']] %}
                     {% for _id in lookup %}
                     <option value="{{ _id }}" {% if _id==interview.grades[question_index] %}selected{% endif %}>
@@ -53,9 +53,9 @@
     </section>
     <section id="interviewer">
         <label for="interviewer-name">Interviewer Name:</label>
-            <input type="text" name="interviewer_name" id="interviewer-name" readonly value="{{interview.interviewer}}">
+            <input type="text" name="interviewer" id="interviewer-name" value="{{interview.interviewer}}">
         <label for="interviewer-email">Interviewer Email:</label>
-            <input type="text" name="interviewer_email" id="interviewer-email" readonly value="{{interview.interviewer_email}}">
+            <input type="text" name="interviewer_email" id="interviewer-email" value="{{interview.interviewer_email}}">
     </section>
     <section id="notes">
         <label for="note">Notes:</label>
