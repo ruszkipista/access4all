@@ -4,7 +4,22 @@
 {% endblock %}
 
 {% block body %}
+<div class="flex-container section-heading">
 
-<h1>Hello World!</h1>
+<h1>Results of interviews</h1>
+<br>
+    {% for interview in records %}
+        <h3>Applicants name</h3>
+        <p> {{ interview['applicant'] }}</p>
+        <h3>Applicants scores on questions</h3>
+        <p>
+        {% for grade in interview['grades'] %}
+            {{ grade }}&nbsp;
+        {% endfor %}
+        </p>
+        <p>{{interview['notes']}}</p>
+    {% endfor %}
+    <h3>End of candidates results</h3>
+</div>
 
 {% endblock %}
