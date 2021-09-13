@@ -8,7 +8,7 @@
         "interviewer_email": "cat@email.com",
         "date": "2021-09-10",
         "grades": [5,4,3,2,1,2,3,4,5,4,3,2,1,2,3,4,5,4,3],
-        "notes": "jbkj iuh iuh ui"
+        "notes": "Joe was a great candidate, enthusiastic"
     },
     {
         "_id": 2,
@@ -19,7 +19,7 @@
         "interviewer_email": "cat@email.com",
         "date": "2021-09-10",
         "grades": [1,2,5,2,4,2,3,4,5,4,3,2,1,2,3,4,5,4,3],
-        "notes": "jbkj iuh iuh ui"
+        "notes": "Took a while to answer some questions"
     },
     {
         "_id": 3,
@@ -30,7 +30,7 @@
         "interviewer_email": "cat@email.com",
         "date": "2021-09-10",
         "grades": [4,5,4,4,4,2,3,4,5,4,3,2,1,2,3,4,5,4,3],
-        "notes": "jbkj iuh iuh ui"
+        "notes": "Bob had lots of questions to ask about onboarding."
     },
     {
         "_id": 4,
@@ -41,7 +41,7 @@
         "interviewer_email": "cat@email.com",
         "date": "2021-09-12",
         "grades": [4,5,4,4,4,2,3,4,5,4,3,2,1,2,3,4,5,4,3],
-        "notes": "iughipug iugiu iugiu  iugi gui"
+        "notes": "Tera seemed quite nervous and took some time to relax."
     },
     {
         "_id": 5,
@@ -52,6 +52,6 @@
         "interviewer_email": "cat@email.com",
         "date": "2021-09-14",
         "grades": [4,5,4,4,4,2,3,4,5,4,3,2,1,2,3,4,5,4,3],
-        "notes": "iug iugoiu iiug iug iugi ig iug"
+        "notes": "Thought for some time before answering questions."
     }
 ]
