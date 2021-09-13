@@ -10,7 +10,7 @@
 
     <section id="candidates">
         <label for="candidate">Candidate Name:</label>
-        <input type="text" id="candidate" name="Candidate_Name"  readonly>
+        <input type="text" id="candidate" name="Candidate_Name"  readonly value={{interview.applicant}}>
     </section>
 
     <section id="questions">
@@ -18,7 +18,7 @@
         {% if loop.first or question.section != question_set['questions'][loop.index0-1].section %}
             {% set isSectionChange = true %}
         <div class="section-one">
-            <label for="first-set" class="question-header">Section A questions are on {{question.section}}</label>
+            <label for="first-set" class="question-header">Questions are on {{question.section}}</label>
         {% else %}
             {% set isSectionChange = false %}
         {% endif %}
@@ -40,9 +40,9 @@
     </section>
     <section id="interviewer">
         <label for="interviewer-name">Interviewer Name:</label>
-            <input type="text" name="interviewer_name" id="interviewer-name" readonly>
+            <input type="text" name="interviewer_name" id="interviewer-name" readonly value={{interview.interviewer}}>
         <label for="interviewer-email">Interviewer Email:</label>
-            <input type="text" name="interviewer_email" id="interviewer-email" readonly>
+            <input type="text" name="interviewer_email" id="interviewer-email" readonly value={{interview.interviewer_email}}>
     </section>
     <section id="notes">
         <label for="note">Notes:</label>
