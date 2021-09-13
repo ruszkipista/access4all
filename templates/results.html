@@ -5,6 +5,16 @@
 
 {% block body %}
 
-<h1>Hello World!</h1>
+<h1>Results of interviews</h1>
+<br>
+{% for interview in records %}
+    <p> {{ interview['applicant'] }}</p>
+    <p>
+    {% for grade in interview['grades'] %}
+        {{ grade }}&nbsp;
+    {% endfor %}
+    </p>
+    <p>{{interview['notes']}}</p>
+{% endfor %}
 
 {% endblock %}
