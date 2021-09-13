@@ -11,6 +11,8 @@
 
 body {
     min-height:100%; 
+}
+
 .main-wrapper {
     display: flex;
     flex-direction: column;
@@ -271,12 +273,12 @@ body {
 
 #stages {
     list-style: none;
+    width: 100%;
+    margin-left: 0;
 }
 
-#stages li:before {
-    content: "\f058"; 
-    font-family: FontAwesome;
-    display: inline-block;
+
+.section-text i {
     color: #1e698d;
     font-size: 1.5rem;
     padding-right: 5px;
