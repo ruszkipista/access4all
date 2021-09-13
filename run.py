@@ -53,7 +53,7 @@ def update_interview(record_id):
         return redirect(url_for('interviews'))
 
     if request.method == 'POST':
-        result = db.save_record_to_db(request, collection_name, record)
+        result = db.save_record_from_form_to_db(request, collection_name, record)
         for m in result.messages:
             flash(*m)
         # if record is empty, then the update was successful
