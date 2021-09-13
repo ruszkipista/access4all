@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
 {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./css/questions.css') }}" type="text/css">
 {% endblock %}
 
 {% block body %}
 
 <form id="questions-form" method="POST" action="">
-
-    <h1>Enter all fields below</h1>
     
+    <h1 id="questions-form">Interviewees Ratings & Notes</h1>
+
     <section id="candidates">
         <label for="candidate">Candidate Name:</label>
         <input type="text" id="candidate" name="Candidate_Name"  readonly>
