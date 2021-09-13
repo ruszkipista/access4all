@@ -9,7 +9,6 @@ $(document).ready(function () {
 
 AOS.init();
 
-
 // Interviews page - delete confirmation modal
 document.addEventListener('DOMContentLoaded', connectModal());
 
