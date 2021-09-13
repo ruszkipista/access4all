@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block body %}
-<form id="questions-form" method="POST" action="">
+<form id="questions-form" method="POST" action="{{ url_for('update_interview', record_id=interview._id) }}">
     <h1 id="questions-form">Interviewees Ratings & Notes</h1>
 
     <section id="candidates">
         <label for="candidate">Candidate Name:</label>
-        <input type="text" id="candidate" name="Candidate_Name"  readonly value={{interview.applicant}}>
+        <input type="text" id="candidate" name="Candidate_Name"  readonly value="{{interview.applicant}}">
     </section>
 
     <section id="questions">
@@ -40,9 +40,9 @@
     </section>
     <section id="interviewer">
         <label for="interviewer-name">Interviewer Name:</label>
-            <input type="text" name="interviewer_name" id="interviewer-name" readonly value={{interview.interviewer}}>
+            <input type="text" name="interviewer_name" id="interviewer-name" readonly value="{{interview.interviewer}}">
         <label for="interviewer-email">Interviewer Email:</label>
-            <input type="text" name="interviewer_email" id="interviewer-email" readonly value={{interview.interviewer_email}}>
+            <input type="text" name="interviewer_email" id="interviewer-email" readonly value="{{interview.interviewer_email}}">
     </section>
     <section id="notes">
         <label for="note">Notes:</label>
