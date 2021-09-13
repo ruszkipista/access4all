@@ -6,7 +6,7 @@
 {% block body %}
 <div class="flex-container section-heading">
 
-<h1>Results of interviews</h1>
+<h3>Results of interviews</h3>
 <br>
 
     {% for interview in records %}
@@ -19,6 +19,7 @@
         {% endfor %}
         </p>
         <p>{{interview['notes']}}</p>
+        <hr>
     {% endfor %}
     <h2>End of candidates results</h2>
 </div>
