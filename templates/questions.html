@@ -10,9 +10,14 @@
 <form id="questions-form" method="POST" action="{{ url_for('update_interview', record_id=interview._id) }}">
     <h1 id="questions-form">Interviewees Ratings & Notes</h1>
 
-    <section id="candidates">
-        <label for="candidate">Candidate Name:</label>
+    <section id="questions">
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position"  readonly value="{{interview.position}}">
+        <label for="candidate" class="ms-2">Candidate Name:</label>
         <input type="text" id="candidate" name="Candidate_Name"  readonly value="{{interview.applicant}}">
+        <label for="date" class="ms-2">Date:</label>
+        <input type="date" id="date" name="date" readonly value="{{interview.date|datetime_to_str('%Y-%m-%d')}}">
+        <input type="hidden" name="question_set_id" readonly value="{{interview.question_set_id}}">
     </section>
 
     <section id="questions">

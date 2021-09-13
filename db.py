@@ -284,7 +284,7 @@ def save_record_from_form_to_db(request, collection_name, record_old):
 
     if not record_new:
         messages.append(
-            (f"Did not {'update' if record_old else 'add'} record", "error"))
+            (f"Did not {'update' if record_old else 'add'} record", "danger"))
     else:
         if record_old:
             try:
