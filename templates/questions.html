@@ -5,9 +5,7 @@
 {% endblock %}
 
 {% block body %}
-
 <form id="questions-form" method="POST" action="">
-    
     <h1 id="questions-form">Interviewees Ratings & Notes</h1>
 
     <section id="candidates">
@@ -16,10 +14,16 @@
     </section>
 
     <section id="questions">
+        {% for question in question_set['questions'] %}
+        {% if loop.first or question.section != question_set['questions'][loop.index0-1].section %}
+            {% set isSectionChange = true %}
         <div class="section-one">
-            <label for="first-set" class="question-header">Section1</label>
+            <label for="first-set" class="question-header">Section A questions are on {{question.section}}</label>
+        {% else %}
+            {% set isSectionChange = false %}
+        {% endif %}
             <div class="flex-container">
-                <p class="question">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo repellendus rerum ex ratione laudantium et.</p>
+                <p class="question">{{question.question}}</p>
                 <select name="first-set" id="first-set">
                     <option value="First_Set_Score">1</option>
                     <option value="First_Set_Score">2</option>
@@ -28,35 +32,21 @@
                     <option value="First_Set_Score">5</option>
                 </select>
             </div>
+        {% if isSectionChange %}
         </div>
-
-        <div class="section-two">
-            <label for="second-set" class="question-header">Section 2</label>
-            <div class="flex-container">
-                <p class="question">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, expedita deleniti? Dolorem quia illo doloribus!</p>
-                <select name="second-set" id="second-set">
-                    <option value="Second_Set_Score">1</option>
-                    <option value="Second_Set_Score">2</option>
-                    <option value="Second_Set_Score">3</option>
-                    <option value="Second_Set_Score">4</option>
-                    <option value="Second_Set_Score">5</option>
-                </select>
-            </div>
-        </div>
+        {% set isSectionChange = false %}
+        {% endif %}
+        {% endfor %}
     </section>
-
     <section id="interviewer">
         <label for="interviewer-name">Interviewer Name:</label>
             <input type="text" name="interviewer_name" id="interviewer-name" readonly>
         <label for="interviewer-email">Interviewer Email:</label>
             <input type="text" name="interviewer_email" id="interviewer-email" readonly>
     </section>
-
     <section id="notes">
         <label for="note">Notes:</label>
             <textarea name="notes" id="note" cols="40" rows="5"></textarea>
     </section>
-
 </form>
-
 {% endblock %}
