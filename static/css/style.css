@@ -441,6 +441,12 @@ footer {
 
 /*-------FOOTER MEDIA QUERIES---------*/
 
+/*-------for large screens---------*/
+@media screen and (min-width: 1400px) {
+    .fsbg {
+        max-height: 900px;
+    }
+}
 /*-------for tablets---------*/
 @media(max-width:768px) {
     .text-box {
