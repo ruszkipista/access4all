@@ -42,7 +42,7 @@ def interviews():
     )
 
 
-@app.route("/questions/<record_id>", methods=['GET', 'POST'])
+@app.route("/interviews/<record_id>", methods=['GET', 'POST'])
 def update_interview(record_id):
     record_id = int(record_id)
     collection_name = db.INTERVIEWS

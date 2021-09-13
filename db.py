@@ -131,7 +131,6 @@ def translate_internal_to_external(source_field_name, input_type, lookup_collect
 
 def convert_field_values_int_to_ext_in_collection(collection_name, records):
     field_names = fieldcatalog[collection_name].get("convert_fields", None)
-    print(field_names)
     if field_names:
         field_type_lookup_triples = get_db_field_type_lookup_triples(collection_name, field_names)
         for record in records:

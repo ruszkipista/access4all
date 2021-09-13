@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+{% set coll_fieldcat = fieldcatalog[collection_name] %}
+
 <form id="questions-form" method="POST" action="{{ url_for('update_interview', record_id=interview._id) }}">
     <h1 id="questions-form">Interviewees Ratings & Notes</h1>
 
@@ -24,13 +26,19 @@
         {% endif %}
             <div class="flex-container">
                 <p class="question">{{question.question}}</p>
-                <select name="first-set" id="first-set">
-                    <option value="First_Set_Score">1</option>
-                    <option value="First_Set_Score">2</option>
-                    <option value="First_Set_Score">3</option>
-                    <option value="First_Set_Score">4</option>
-                    <option value="First_Set_Score">5</option>
+                {% set question_index = loop.index0 %}
+                {% for field in coll_fieldcat.dbfields %}
+                {% if field.name == 'grades' %}
+                <select name="{{field.name}}-{{ loop.index0 }}" id="{{field.name}}-{{ question_index }}">
+                    {% set lookup = buffer[field['values']] %}
+                    {% for _id in lookup %}
+                    <option value="{{ _id }}" {% if _id==interview.grades[question_index] %}selected{% endif %}>
+                    {{- lookup[_id] -}}
+                    </option>
+                    {% endfor %}
                 </select>
+                {% endif %}
+                {% endfor %}
             </div>
         {% if isSectionChange %}
         </div>
@@ -46,7 +54,7 @@
     </section>
     <section id="notes">
         <label for="note">Notes:</label>
-            <textarea name="notes" id="note" cols="40" rows="5"></textarea>
+            <textarea name="notes" id="note" cols="40" rows="5">{{interview.notes}}</textarea>
     </section>
     
     <div id="submit">
