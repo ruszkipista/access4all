@@ -10,7 +10,8 @@
 }
 
 body {
-    min-height:100%; 
+    min-height:100%;
+}
 .main-wrapper {
     display: flex;
     flex-direction: column;
@@ -22,8 +23,6 @@ body {
 .content{
     flex-grow: 1;
 }
-
-
 
 /*-------NAVBAR------*/
 .content-container {
@@ -229,12 +228,11 @@ body {
   }
 
   .text-box p {
-      text-transform: none;
+    text-transform: none;
   }
 
   #about i {
-   color: #789fbb
-   ;
+   color: #789fbb;
   }
   
 .section-heading {
@@ -287,8 +285,7 @@ body {
   }
 
   #about i {
-   color: #789fbb
-   ;
+   color: #789fbb;
   }
   
 .section-heading {
@@ -444,18 +441,19 @@ footer {
     .text-box {
         left: 40%;
         bottom: 50%;
-      }
+    }
     .hero-header {
         font-size: 1.5rem;
+    }
     .text-box h2 {
         font-size: 1rem;
-      }
+    }
     .text-box p {
         font-size: 0.8rem;
-      }
-      .text-box .btn {
-        font-size: 0.7rem;
-      }
+    }
+    .text-box .btn {
+    font-size: 0.7rem;
+    }
 
     .sm-icon {
         margin-right: 1rem;
