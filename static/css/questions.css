@@ -10,6 +10,7 @@
 
 #questions-form h1 {
       text-align: center;
+      text-transform: uppercase;
 }
 
 #questions-form input, select, textarea {
