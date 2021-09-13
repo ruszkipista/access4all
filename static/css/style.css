@@ -10,7 +10,7 @@
 }
 
 body {
-    min-height:100%;
+    min-height:100%; 
 }
 .main-wrapper {
     display: flex;
@@ -23,6 +23,8 @@ body {
 .content{
     flex-grow: 1;
 }
+
+
 
 /*-------NAVBAR------*/
 .content-container {
@@ -228,11 +230,12 @@ body {
   }
 
   .text-box p {
-    text-transform: none;
+      text-transform: none;
   }
 
   #about i {
-   color: #789fbb;
+   color: #789fbb
+   ;
   }
   
 .section-heading {
@@ -269,12 +272,12 @@ body {
 
 #stages {
     list-style: none;
+    width: 100%;
+    margin-left: 0;
 }
 
-#stages li:before {
-    content: "\f058"; 
-    font-family: FontAwesome;
-    display: inline-block;
+
+.section-text i {
     color: #1e698d;
     font-size: 1.5rem;
     padding-right: 5px;
@@ -436,6 +439,12 @@ footer {
 
 /*-------FOOTER MEDIA QUERIES---------*/
 
+/*-------for large screens---------*/
+@media screen and (min-width: 1400px) {
+    .fsbg {
+        max-height: 900px;
+    }
+}
 /*-------for tablets---------*/
 @media(max-width:768px) {
     .text-box {
