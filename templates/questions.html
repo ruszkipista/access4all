@@ -1,64 +1,69 @@
 {% extends "base.html" %}
 
 {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='./css/questions.css') }}" type="text/css">
 {% endblock %}
 
 {% block body %}
+{% set coll_fieldcat = fieldcatalog[collection_name] %}
 
-<form id="questions-form" method="POST" action="">
+<form id="questions-form" method="POST" action="{{ url_for('update_interview', record_id=interview._id) }}">
+    <h1 id="questions-form">Interviewees Ratings & Notes</h1>
 
-    <h1>Enter all fields below</h1>
-    
-    <section id="candidates">
-        <label for="candidate">Candidate Name:</label>
-        <input type="text" id="candidate" name="Candidate_Name"  readonly>
+    <section id="questions">
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position"  value="{{interview.position}}">
+        <label for="candidate" class="ms-2">Candidate Name:</label>
+        <input type="text" id="candidate" name="applicant"  value="{{interview.applicant}}">
+        <label for="date" class="ms-2">Date:</label>
+        <input type="date" id="date" name="date" value="{{interview.date|datetime_to_str('%Y-%m-%d')}}">
+        <input type="hidden" name="question_set_id" value="{{interview.question_set_id}}">
     </section>
 
     <section id="questions">
+        {% for question in question_set['questions'] %}
+        {% if loop.first or question.section != question_set['questions'][loop.index0-1].section %}
+            {% set isSectionChange = true %}
         <div class="section-one">
-            <label for="first-set" class="question-header">Section1</label>
+            <label for="first-set" class="question-header">Questions are on {{question.section}}</label>
+        {% else %}
+            {% set isSectionChange = false %}
+        {% endif %}
             <div class="flex-container">
-                <p class="question">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo repellendus rerum ex ratione laudantium et.</p>
-                <select name="first-set" id="first-set">
-                    <option value="First_Set_Score">1</option>
-                    <option value="First_Set_Score">2</option>
-                    <option value="First_Set_Score">3</option>
-                    <option value="First_Set_Score">4</option>
-                    <option value="First_Set_Score">5</option>
+                <p class="question">{{question.question}}</p>
+                {% set question_index = loop.index0 %}
+                {% for field in coll_fieldcat.dbfields %}
+                {% if field.name == 'grades' %}
+                <select name="{{field.name}}-{{ question_index }}" id="{{field.name}}-{{ question_index }}">
+                    {% set lookup = buffer[field['values']] %}
+                    {% for _id in lookup %}
+                    <option value="{{ _id }}" {% if _id==interview.grades[question_index] %}selected{% endif %}>
+                    {{- lookup[_id] -}}
+                    </option>
+                    {% endfor %}
                 </select>
+                {% endif %}
+                {% endfor %}
             </div>
+        {% if isSectionChange %}
         </div>
-
-        <div class="section-two">
-            <label for="second-set" class="question-header">Section 2</label>
-            <div class="flex-container">
-                <p class="question">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, expedita deleniti? Dolorem quia illo doloribus!</p>
-                <select name="second-set" id="second-set">
-                    <option value="Second_Set_Score">1</option>
-                    <option value="Second_Set_Score">2</option>
-                    <option value="Second_Set_Score">3</option>
-                    <option value="Second_Set_Score">4</option>
-                    <option value="Second_Set_Score">5</option>
-                </select>
-            </div>
-        </div>
+        {% set isSectionChange = false %}
+        {% endif %}
+        {% endfor %}
     </section>
-
     <section id="interviewer">
-        <label for="interviewer-name">
-            <input type="text" name="interviewer_name" id="interviewer-name" readonly>
-        </label>
-        <label for="interviewer-email">
-            <input type="text" name="interviewer_email" id="interviewer-email" readonly>
-        </label>
+        <label for="interviewer-name">Interviewer Name:</label>
+            <input type="text" name="interviewer" id="interviewer-name" value="{{interview.interviewer}}">
+        <label for="interviewer-email">Interviewer Email:</label>
+            <input type="text" name="interviewer_email" id="interviewer-email" value="{{interview.interviewer_email}}">
     </section>
-
     <section id="notes">
-        <label for="note">
-            <textarea name="notes" id="note" cols="30" rows="10"></textarea>
-        </label>
+        <label for="note">Notes:</label>
+            <textarea name="notes" id="note" cols="40" rows="5">{{interview.notes}}</textarea>
     </section>
-
+    
+    <div id="submit">
+        <input type="submit" class="submit-btn">
+    </div>
 </form>
-
 {% endblock %}

@@ -1,6 +1,6 @@
 [
     {"_id": 1,
-     "setname": "default",
+     "setname": "Set A",
      "questions": [
         {"section": "performance",
          "question": "In your past jobs would you say that you were a low, medium or high performer?  Why?"
@@ -61,7 +61,7 @@
         }
     ]},
     {"_id": 2,
-    "setname": "lorem",
+    "setname": "Set B",
     "questions": [
         {"section": "Aaaaaaaaaaa",
          "question": "Section Aaaaaaaaaaa question 1?"
@@ -101,7 +101,7 @@
         }
     ]},
     {"_id": 3,
-    "setname": "ipsum",
+    "setname": "Set C",
     "questions": [
         {"section": "Xxxxxxxxxxx",
          "question": "Section Xxxxxxxxxxx question 1?"

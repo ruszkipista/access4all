@@ -1,6 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, flash, send_file, session, url_for
-from io import BytesIO
+from flask import Flask, render_template, request, redirect, flash, url_for
 import db
 
 # envWS.py should exist only in Development
@@ -23,67 +22,99 @@ app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", "False").lower() \
 def index():
     return render_template("index.html")
 
+
+@app.route("/onboarding")
+def onboarding():
+    return render_template("onboarding.html")
+
+
 @app.route("/interviews")
 def interviews():
-    interviews         = db.get_interviews_all()
-    question_set_names = db.get_question_set_names()
+    records = db.get_interviews_all()
+    if not records:
+        flash("There are no records. Create one below!", 'info')
     return render_template(
         "interviews.html", 
         collection_name    = db.INTERVIEWS,
-        records            = interviews,
-        fieldcatalog       = db.fieldcatalog,
-        question_set_names = question_set_names)
-
-@app.route("/questions")
-def questions():
-    return render_template("questions.html")
+        viewfields         = db.get_viewfields(db.INTERVIEWS),
+        records            = records,
+        question_set_names = db.get_question_set_names()
+    )
 
 
-@app.route("/update/<collection_name>/<record_id>", methods=['GET', 'POST'])
-def update_record(collection_name, record_id):
-    record = db.get_db_record_by_id(collection_name, record_id)
+@app.route("/interviews/<record_id>", methods=['GET', 'POST'])
+def update_interview(record_id):
+    record_id = int(record_id)
+    collection_name = db.INTERVIEWS
+    record = db.get_record_by_id(collection_name, record_id)
     if not record:
-        entity_name = db.get_db_entity_name(collection_name)
+        entity_name = db.get_entity_name(collection_name)
         flash(f"{entity_name} {record_id} does not exist", "danger")
-        return redirect(url_for('maintain', collection_name=collection_name))
+        return redirect(url_for('interviews'))
 
     if request.method == 'POST':
-        result = db.save_record_to_db(request, collection_name, record)
-        print(*result.messages[0])
+        result = db.save_record_from_form_to_db(request, collection_name, record)
         for m in result.messages:
             flash(*m)
         # if record is empty, then the update was successful
         if not result.record:
-            return redirect(url_for('maintain', collection_name=collection_name))
+            return redirect(url_for('interviews'))
+        else:
+            record = result.record
+
+    question_set_id = record.get("question_set_id", None)
+    question_set = db.get_record_by_id(db.QUESTION_SETS, question_set_id)
 
     return render_template(
-        "maintain.html",
-        collection_name=collection_name,
-        records=[],
-        last_record=record
+        "questions.html",
+        collection_name = collection_name,
+        interview       = record,
+        question_set    = question_set
     )
 
 
 @app.route("/delete/<collection_name>/<record_id>", methods=['POST'])
 def delete_record(collection_name, record_id):
-    record = db.get_db_record_by_id(collection_name, record_id)
+    record = db.get_record_by_id(collection_name, int(record_id))
     if not record:
         flash(f"Record {record_id} does not exist", "danger")
     else:
         # delete record
-        db.delete_db_record(collection_name, record)
-        entity_name = db.get_db_entity_name(collection_name)
+        db.delete_record(collection_name, record)
+        entity_name = db.get_entity_name(collection_name)
         flash(f"Deleted one {entity_name} record", "info")
-    return redirect(url_for('maintain', collection_name=collection_name))
+    return redirect(url_for('interviews'))
+
+
+@app.route("/create/<collection_name>", methods=['POST'])
+def create_record(collection_name):
+    result = db.save_record_from_form_to_db(request, collection_name, {})
+    for m in result.messages:
+        flash(*m)
+    return redirect(url_for('interviews'))
+
+
+@app.route("/results")
+def results():
+    interviews = db.get_interviews_all()
+    return render_template(
+        "results.html", 
+        collection_name    = db.INTERVIEWS,
+        records            = interviews,
+    )
 
 
 @app.errorhandler(404)
 def page_not_found(e):
     return redirect(url_for("index"))
 
-@app.template_filter('create_data_attributes')
-def _jinja2_filter_create_data_attributes(coll_fieldcat: dict, record: dict, filter_postfix: str):
-    return db.create_form_data_attributes(coll_fieldcat, record, filter_postfix)
+
+@app.context_processor
+def context_variables():
+    return dict(
+        fieldcatalog = db.fieldcatalog,
+        buffer = {coll: db.get_lookup_int_to_ext(coll) for coll in db.get_buffered_collections()}
+    )
 
 
 @app.template_filter('get_foreign_value')
